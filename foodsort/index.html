@@ -13,8 +13,8 @@
 <body>
 
   <script type="text/javascript">
-  var g_width = 1280;
-  var g_height = 720;
+  var g_width = 800;
+  var g_height = 600;
 
   var game = new Phaser.Game(g_width, g_height, Phaser.AUTO, '', { preload: preload, create: create, update: update });
   function preload() {
@@ -42,8 +42,8 @@
     boxes.enableBody = true;
     for (var i = 0; i < 3; i++)
     {
-      var box = boxes.create(50+i*500, game.world.height-64, 'box');
-      box.scale.setTo(0.5,1);
+      var box = boxes.create(50+i*250, game.world.height-64, 'box');
+      box.scale.setTo(0.3,1);
       box.body.immovable = true;
     }
 
@@ -64,6 +64,7 @@
       star.input.enableDrag(false);
     }
 
+    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
   }
   function update() {
     game.physics.arcade.collide(stars, boxes);
@@ -74,6 +75,8 @@
 
     // Removes the star from the screen
     star.kill();
+    score += 1;
+    scoreText.text = 'Score:' + score;
 
   }
   </script>
