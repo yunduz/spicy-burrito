@@ -25,7 +25,7 @@ var g_width = 800;
 
   var popup;
 
-  var countDownTimer = 10;
+  var countDownTimer = 60;
   var countDownTimerText;
   var countDownTimerEvent;
 
@@ -112,9 +112,13 @@ Game.prototype = {
     countDownTimerText = game.add.text(12, 100, 'Time: '+countDownTimer,  { fontSize: '28px', fill: '#000' });
 
     this.quitOption('Quit', function (e) {
-      localStorage.setItem("finalscore", score);
-      score=0;
-      this.game.state.start("GameOver");
+      // localStorage.setItem("finalscore", score);
+      // // score=0;
+      // // star_velocity = 60;
+      // // countDownTimer = 60;
+      // resetCounters();
+      // this.game.state.start("GameOver");
+      this.quitGame();
     });
 
     game.input.onDown.add(this.unpause, self);
@@ -129,13 +133,25 @@ Game.prototype = {
     countDownTimerEvent = this.time.events.loop(Phaser.Timer.SECOND, this.updateCountDownTimer, this);
   },
 
+  quitGame: function() {
+    localStorage.setItem("finalscore", score);
+    this.resetCounters();
+    this.game.state.start("GameOver");
+  },
+
+  resetCounters: function() {
+    score=0;
+    star_velocity = 60;
+    countDownTimer = 60;
+  },
+
   updateCountDownTimer: function() {
     countDownTimer -= 1;
     countDownTimerText.setText('Time: ' + countDownTimer);
     if(countDownTimer === 0) {
       //To remove event:
       game.time.events.remove(countDownTimerEvent);
-
+      this.quitGame();
     }
   },
 
