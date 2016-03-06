@@ -9,51 +9,6 @@ Credits.prototype = {
 
   },
 
-  init: function () {
-    this.titleText = game.make.text(game.world.centerX, 60, "Credits", {
-      font: 'bold 60pt TheMinion',
-      fill: '#FDFFB5',
-      align: 'center'
-    });
-    this.titleText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-    this.titleText.anchor.set(0.5);
-
-    
-    this.evText = game.make.text(game.world.centerX-200, (1*60)+120, "Evgeny Vinnik", {
-    font: '20pt TheMinion',
-    fill: '#FEFFD5',
-    align: 'center'
-    });
-    //this.evText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-    //this.evText.anchor.set(0.5);
-
-    this.miText = game.make.text(game.world.centerX-200, (2*60)+120, "Mehrnoosh Ebrahimipour", {
-    font: '20pt TheMinion',
-    fill: '#FEFFD5',
-    align: 'center'
-    });
-    //this.miText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-    //this.miText.anchor.set(0.5);
-
-    this.yrText = game.make.text(game.world.centerX-200, (3*60)+120, "Yunduz Rakhmangulova", {
-    font: '20pt TheMinion ',
-    fill: '#FEFFD5',
-    align: 'center'
-    });
-    //this.yrText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-    //this.yrText.anchor.set(0.5);
-
-    this.ymkText = game.make.text(game.world.centerX-200, (4*60)+120, "Yawar Mohammad Khan", {
-    font: '20pt TheMinion ',
-    fill: '#FEFFD5',
-    align: 'center'
-    });
-    //this.ymkText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-    //this.ymkText.anchor.set(0.5);
-
-    this.creditCount = 4;
-  },
-
   addMenuOption: function(text, callback) {
     var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'center', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
     var txt = game.add.text(game.world.centerX-40, (this.optionCount * 80) + 450, text, optionStyle);
@@ -88,23 +43,10 @@ Credits.prototype = {
       music.play();
     }
     this.stage.disableVisibilityChange = true;
-    //game.add.existing(this.titleText);
-
-    // game.add.text(game.world.centerX, 400, "#{van} hacks - Vancouver Food Bank", {
-    //   font: 'bold 20pt',
-    //   fill: 'white',
-    //   align: 'center'
-    // });
-    // game.add.existing(this.evText);
-    // game.add.existing(this.miText);
-    // game.add.existing(this.yrText);
-    // game.add.existing(this.ymkText);
-    //var bg = game.add.sprite(0, 0, 'gameover-bg');
     
     this.addMenuOption('Back', function (e) {
       game.state.start("GameMenu");
     });
-   // game.add.tween(bg).to({alpha: 0}, 20000, Phaser.Easing.Cubic.Out, true, 40000);
   }
 
 };

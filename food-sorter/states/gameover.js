@@ -57,7 +57,9 @@ GameOver.prototype = {
     this.addMenuOption('Share Score', function (e) {
       this.tweetscore();
     });
-    game.add.text(game.world.centerX+80, 240, localStorage.getItem("finalscore"), { font: 'bold 80pt TheMinion', fill: 'red', align: 'center'});
+    var scor_text = game.add.text(game.world.centerX+80, 240, localStorage.getItem("finalscore"), { font: 'bold 80pt Arial', fill: '#FDFFB5', align: 'center', stroke: 'rgba(0,0,0,0)', srokeThickness: 4});
+    scor_text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+    
     this.addMenuOption('Volunteer', function (e) {
       window.open("https://www.foodbank.bc.ca/get-involved/volunteer/","_blank");
     });
