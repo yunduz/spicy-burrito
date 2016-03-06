@@ -34,7 +34,7 @@ GameOver.prototype = {
 
   tweetscore: function(){       
    var tweetbegin = 'http://twitter.com/home?status=';
-   var tweettxt = 'I scored '+2+' at this game -' + window.location.href + '.';
+   var tweettxt = 'Achieved new high score of '+localStorage.getItem("finalscore")+' in Vancouver Food Bank Food Sorting Game -' + window.location.href + '.';
    var finaltweet = tweetbegin + encodeURIComponent(tweettxt);       
    window.open(finaltweet,'_blank');    
  },
@@ -56,7 +56,7 @@ GameOver.prototype = {
     this.addMenuOption('Share Score', function (e) {
       this.tweetscore();
     });
-    game.add.text(game.world.centerX+100, 200, finalScore, { font: 'bold 60pt TheMinion', fill: 'red', align: 'center'});
+    game.add.text(game.world.centerX+50, 200, localStorage.getItem("finalscore"), { font: 'bold 80pt TheMinion', fill: 'red', align: 'center'});
     this.addMenuOption('Volunteer', function (e) {
       window.open("https://www.foodbank.bc.ca/get-involved/volunteer/","_blank");
     });

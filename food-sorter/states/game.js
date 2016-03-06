@@ -25,7 +25,6 @@ var g_width = 800;
 
   var button;
   var popup;
-  finalScore = 0;
 
 
 Game.prototype = {
@@ -35,8 +34,7 @@ Game.prototype = {
     //game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.load.image('floor', 'assets/images/floor.png');
-    game.load.image('box', 'assets/images/platform.png');
-
+    
     game.load.image('close', 'assets/images/cross_small.png');
     game.load.spritesheet('button', '/assets/images/button_sprite_sheet.png', 193, 71);
 
@@ -112,7 +110,8 @@ Game.prototype = {
     scoreText = game.add.text(12, 12, 'Sorted\nItems: 0', { fontSize: '28px', fill: '#000' });
 
     this.quitOption('Quit', function (e) {
-      finalScore = this.score;
+      localStorage.setItem("finalscore", score);
+      score=0;
       this.game.state.start("GameOver");
     });
 
