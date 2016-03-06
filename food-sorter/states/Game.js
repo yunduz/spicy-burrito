@@ -58,19 +58,17 @@ Game.prototype = {
     }
 
    game.load.spritesheet('conveyer', 'assets/images/conveyour.png', 250, 150);
-
+   game.load.audio('game_music', 'assets/sound/Blip_Stream_short.mp3');
     this.optionCount = 1;
   },
 
   create: function () {
     this.stage.disableVisibilityChange = false;
-
-    if (music.name !== "background_music" && playMusic) {
-      music.stop();
+    //game.load.audio('background_music', 'assets/sound/Blip_Stream_short.mp3');
       music = game.add.audio('background_music');
       music.loop = true;
       music.play();
-    }
+    
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //  A simple background for our game
     var floor = game.add.sprite(0, 0, 'floor');
