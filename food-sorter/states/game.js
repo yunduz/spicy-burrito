@@ -79,9 +79,7 @@ Game.prototype = {
     score_music = game.add.audio('score_music');
     loss_music = game.add.audio('loss_music');
 
-    //this.quitOption('Quit', function (e) {
-      //this.game.state.start("GameOver");
-    //});
+
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //  A simple background for our game
@@ -112,6 +110,10 @@ Game.prototype = {
     stars.enableBody = true;
 
     scoreText = game.add.text(12, 12, 'Sorted\nItems: 0', { fontSize: '28px', fill: '#000' });
+
+    this.quitOption('Quit', function (e) {
+      this.game.state.start("GameOver");
+    });
 
     game.input.onDown.add(this.unpause, self);
 
@@ -153,8 +155,8 @@ Game.prototype = {
   },
 
   quitOption: function(text, callback) {
-    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
-    var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 10, text, optionStyle);
+    var optionStyle = { font: '30pt TheMinion', fill: 'red', align: 'right', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
+    var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 100, text, optionStyle);
     txt.anchor.setTo(0.5);
     txt.stroke = "rgba(0,0,0,0";
     txt.strokeThickness = 4;

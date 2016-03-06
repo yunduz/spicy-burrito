@@ -20,9 +20,7 @@ Mission.prototype = {
     //vanpin.scale.y=0.05;
 
     game.add.tween(vanpin).to({ y: 250 }, 1100, Phaser.Easing.Quadratic.InOut, true, 0, 1100, true);
-    vanpin.alpha=0.5;
-    game.add.tween(vanpin).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
-
+    
     var onOver = function (target) {
       vanpin.useHandCursor = true;
     };
