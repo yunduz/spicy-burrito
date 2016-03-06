@@ -34,7 +34,7 @@
 
   function preload() {
 
-    game.load.image('sky', 'assets/sky.png');
+    game.load.image('floor', 'assets/floor.png');
     game.load.image('box', 'assets/platform.png');
 
     game.load.image('close', 'assets/orb-red.png');
@@ -77,8 +77,7 @@
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //  A simple background for our game
-    var sky = game.add.sprite(0, 0, 'sky');
-    sky.scale.setTo(2, 1.5);
+    var floor = game.add.sprite(0, 0, 'floor');
 
     var conveyer = game.add.sprite(150, 0, 'conveyer');
     conveyer.scale.setTo(2, 2);
