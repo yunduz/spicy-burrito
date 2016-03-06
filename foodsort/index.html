@@ -29,8 +29,6 @@
     { preload: preload, create: create, update: update, render: render });
 
   function preload() {
-    // game.load.baseURL = 'http://examples.phaser.io/assets/';
-    // game.load.crossOrigin = 'anonymous';
 
     game.load.image('sky', 'assets/sky.png');
     game.load.image('star', 'assets/star.png');
@@ -54,6 +52,8 @@
       game.load.image(crate_keys[i], 'assets/' + crate_keys[i] + '.png');
     }
 
+    game.load.spritesheet('conveyer', 'assets/test.png', 500, 300);
+
   }
   var player;
   var boxes;
@@ -76,17 +76,16 @@
     var sky = game.add.sprite(0, 0, 'sky');
     sky.scale.setTo(2, 1.5);
 
+    var conveyer = game.add.sprite(150, 0, 'conveyer');
+    var belt = conveyer.animations.add('belt');
+    conveyer.animations.play('belt', 30, true);
+
     boxes = game.add.group();
     boxes.enableBody = true;
     for (var i = 0; i < 3; i++)
     {
       var key = crate_keys[i];
-      // if(i===2)
-      // {
-      //   key = 'box2';
-      // }
       var box = boxes.create(90+i*250, game.world.height-150, key);
-      //box.scale.setTo(0.3,1);
       box.body.immovable = true;
     }
 
@@ -102,9 +101,6 @@
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     game.input.onDown.add(unpause, self);
-    //TODO: show first popup
-    //addPopUpSprite(popup_keys.pop());
-    //openPopUpWindow();
 
     addNewStarType();
     //add first star
@@ -147,10 +143,11 @@
   {
     //  Create a star inside of the 'stars' group
     var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
-    var star = stars.create(g_width/2, 0, key);
+
+    var star = stars.create(getRandomIntInclusive(200, g_width-200), 0, key);
 
     //  Let gravity do its thing
-    //star.body.gravity.y = 10;
+
     star.body.velocity.y = 60;
 
     star.checkWorldBounds = true;
@@ -182,17 +179,11 @@
 
     //  And click the close button to close it down again
     var closeButton = game.make.sprite(pw, -ph, 'close');
-    // closeButton.inputEnabled = true;
-    // closeButton.input.priorityID = 1;
-    // closeButton.input.useHandCursor = true;
-    // closeButton.events.onInputDown.add(closeWindow, this);
-    //
-    // //  Add the "close button" to the popup window image
+
     popup.addChild(closeButton);
 
     var style = { font: "32px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: popup.width, align: "center", backgroundColor: "#ffff00" };
 
-    //text = game.add.text(0, 0, "- text on a sprite -\ndrag me", style);
     text = game.add.text(0, 0, "SAMPLE TEXT", style);
     text.anchor.set(0.5);
     popup.addChild(text);
@@ -205,7 +196,6 @@
   }
 
   function update() {
-    //game.physics.arcade.collide(stars, boxes);
     game.physics.arcade.overlap(boxes, stars, collectItem, null, this);
 
     game.physics.arcade.overlap(deadline, stars, removeStar, null, this);
@@ -227,7 +217,6 @@
       score -= 1;
     }
     scoreText.text = 'Score:' + score;
-    //scoreText.text = 'box.key:' + box.key + ' star.key:' + star.key + '\n--'+crate_keys[2]+'--'+star_keys[2];
 
   }
 
@@ -242,9 +231,13 @@
   function render()
   {
     game.debug.text("current_keys: " + current_star_keys, 20, 20);
-    //game.debug.pointer( game.input.activePointer );
-      // game.debug.text( "justpressedrate: " + isOver, 200, 100 );
-      // game.debug.text( "Pointer: (" + game.input.pointer1.x + ", " + game.input.pointer1.y + ")", 200, 116 );
+  }
+
+  // Returns a random integer between min (included) and max (included)
+  // Using Math.round() will give you a non-uniform distribution!
+  function getRandomIntInclusive(min, max)
+  {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   </script>
