@@ -26,7 +26,7 @@ GameMenu.prototype = {
 
   startOption: function(text, callback) {
 
-    var optionStyle = { font: '60pt TheMinion', fill: 'red', align: 'center', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
+    var optionStyle = { font: '60pt TheMinion', fill: '#4190c4', align: 'center', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
     var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 110, text, optionStyle);
 
     txt.anchor.setTo(0.5);
@@ -39,7 +39,7 @@ GameMenu.prototype = {
       txt.useHandCursor = true;
     };
     var onOut = function (target) {
-      target.fill = "red";
+      target.fill = "#4190c4";
       target.stroke = "rgba(0,0,0,0)";
       txt.useHandCursor = false;
     };
