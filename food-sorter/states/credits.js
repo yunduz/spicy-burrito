@@ -9,7 +9,7 @@ Credits.prototype = {
   },
 
   init: function () {
-    this.titleText = game.make.text(game.world.centerX, 100, "Credits", {
+    this.titleText = game.make.text(game.world.centerX, 60, "Credits", {
       font: 'bold 60pt TheMinion',
       fill: '#FDFFB5',
       align: 'center'
@@ -17,8 +17,9 @@ Credits.prototype = {
     this.titleText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     this.titleText.anchor.set(0.5);
 
-    this.evText = game.make.text(game.world.centerX, 250, "Evgeny Vinnik", {
-    font: '20pt TheMinion',
+    
+    this.evText = game.make.text(game.world.centerX, 200, "Evgeny Vinnik", {
+    font: '40pt TheMinion',
     fill: '#FEFFD5',
     align: 'left'
     });
@@ -26,23 +27,23 @@ Credits.prototype = {
     this.evText.anchor.set(0.5);
 
     this.miText = game.make.text(game.world.centerX, 290, "Mehrnoosh Ebrahimipour", {
-    font: '20pt TheMinion',
+    font: '40pt TheMinion',
     fill: '#FEFFD5',
     align: 'center'
     });
     this.miText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     this.miText.anchor.set(0.5);
 
-    this.yrText = game.make.text(game.world.centerX, 330, "Yunduz Rakhmangulova", {
-    font: '20pt TheMinion',
+    this.yrText = game.make.text(game.world.centerX, 380, "Yunduz Rakhmangulova", {
+    font: '40pt TheMinion',
     fill: '#FEFFD5',
     align: 'center'
     });
     this.yrText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     this.yrText.anchor.set(0.5);
 
-    this.ymkText = game.make.text(game.world.centerX, 370, "Yawar Mohammad Khan", {
-    font: '20pt TheMinion',
+    this.ymkText = game.make.text(game.world.centerX, 470, "Yawar Mohammad Khan", {
+    font: '40pt TheMinion',
     fill: '#FEFFD5',
     align: 'center'
     });
@@ -53,8 +54,8 @@ Credits.prototype = {
   },
 
   addMenuOption: function(text, callback) {
-    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
-    var txt = game.add.text(10, (this.optionCount * 80) + 450, text, optionStyle);
+    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'center', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
+    var txt = game.add.text(game.world.centerX-40, (this.optionCount * 80) + 450, text, optionStyle);
 
     txt.stroke = "rgba(0,0,0,0";
     txt.strokeThickness = 4;
@@ -86,7 +87,7 @@ Credits.prototype = {
     game.add.existing(this.ymkText);
     //var bg = game.add.sprite(0, 0, 'gameover-bg');
     
-    this.addMenuOption('<- Back', function (e) {
+    this.addMenuOption('Back', function (e) {
       game.state.start("GameMenu");
     });
    // game.add.tween(bg).to({alpha: 0}, 20000, Phaser.Easing.Cubic.Out, true, 40000);

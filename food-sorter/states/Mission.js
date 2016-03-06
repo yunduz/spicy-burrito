@@ -124,7 +124,9 @@ Mission.prototype = {
     game.add.sprite(0, 0, 'map');
 
     this.stage.disableVisibilityChange = false;
-    
+    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
+    var txt = game.add.text(game.world.centerX-100, 20, 'Choose Mission', optionStyle);
+
     this.selectVan('van', function (e) {
      this.game.state.start("GameOver");
     });
