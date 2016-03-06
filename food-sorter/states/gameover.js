@@ -34,7 +34,7 @@ GameOver.prototype = {
 
   tweetscore: function(){       
    var tweetbegin = 'http://twitter.com/home?status=';
-   var tweettxt = 'I just scored '+localStorage.getItem("finalscore")+' in Vancouver Food Bank Sorting Game! Can you beat it? @VanFoodBank #VanFoodBank -http://bit.ly/1bAJnjY' ;
+   var tweettxt = 'I just scored '+localStorage.getItem("finalscore")+' in Vancouver Food Bank Sorting Game! Can you beat it? @VanFoodBank #VanFoodBank #GVFB http://bit.ly/1bAJnjY' ;
    var finaltweet = tweetbegin + encodeURIComponent(tweettxt);       
    window.open(finaltweet,'_blank');    
  },
