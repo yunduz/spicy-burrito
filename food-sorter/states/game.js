@@ -311,14 +311,14 @@ Game.prototype = {
         (box.key === crate_keys[1] && star.key === permanent_star_keys[1]) ||
         (box.key === crate_keys[2] && star.key === permanent_star_keys[2]))
     {
-      score += 1;
+      score += 15;
       //music.stop();
       score_music.play();
       //music.play();
     }
     else
     {
-      score -= 1;
+      score -= 5;
       loss_music.play();
     }
     scoreText.text = 'Sorted\nItems: ' + score;
