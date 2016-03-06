@@ -42,7 +42,7 @@ GameOver.prototype = {
     //game.add.sprite(0, 0, 'gameover-bg');
 
     if (music.name !== "background_music" && playMusic) {
-      music.stop();
+     music.stop();
     }
 
     var titleStyle = { font: 'bold 60pt TheMinion', fill: '#FDFFB5', align: 'center'};
@@ -54,10 +54,10 @@ GameOver.prototype = {
       this.tweetscore();
     });
     this.addMenuOption('Volunteer', function (e) {
-      window.open("http://www.yawarkhan.com","_blank");
+      window.open("https://www.foodbank.bc.ca/get-involved/volunteer/","_blank");
     });
     this.addMenuOption('Donate', function (e) {
-      window.open("http://www.yawarkhan.com","_blank");
+      window.open("http://gvfbs.convio.net/donate","_blank");
     });
     this.addMenuOption('Play Again', function (e) {
       this.game.state.start("Mission");

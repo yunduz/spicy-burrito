@@ -78,12 +78,12 @@ GameMenu.prototype = {
 
   create: function () {
 
-    if (music.name !== "background_music" && playMusic) {
-      music.stop();
-      music = game.add.audio('background_music');
-      music.loop = true;
-      music.play();
-    }
+    // if (music.name !== "background_music" && playMusic) {
+    //   music.stop();
+    //   music = game.add.audio('background_music');
+    //   music.loop = true;
+    //   music.play();
+    // }
 
     game.stage.backgroundColor = "#4488AA";
     game.stage.disableVisibilityChange = true;
