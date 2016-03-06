@@ -5,9 +5,7 @@ Mission.prototype = {
   preload: function () {
     this.optionCount = 1;
     game.load.image('map', 'assets/images/map.png');
-    
-    game.load.spritesheet('button', 'assets/images/sprite_pin1.png',465,640,2);
-
+    game.load.spritesheet('button', 'assets/images/sprite_pin.png',465,640,2);
     game.load.image('pin', 'assets/images/sprite_pin.png');
     
   },
