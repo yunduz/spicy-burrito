@@ -58,19 +58,31 @@ Game.prototype = {
     }
 
    game.load.spritesheet('conveyer', 'assets/images/conveyour.png', 250, 150);
+   game.load.audio('game_music', 'assets/sound/Blip_Stream_short.mp3');
+   game.load.audio('score_music', 'assets/sound/SCORE.wav');
+  game.load.audio('loss_music', 'assets/sound/LOOSER.wav');
+  game.load.audio('game_music', 'assets/sound/Blip_Stream_short.mp3');
 
     this.optionCount = 1;
   },
 
   create: function () {
     this.stage.disableVisibilityChange = false;
-
-    if (music.name !== "background_music" && playMusic) {
+    if (music.name !== "game_music" && gameOptions.playMusic) {
       music.stop();
-      music = game.add.audio('background_music');
+      music = game.add.audio('game_music');
       music.loop = true;
+      music.volume=0.2;
       music.play();
     }
+
+    score_music = game.add.audio('score_music');
+    loss_music = game.add.audio('loss_music');
+
+    //this.quitOption('Quit', function (e) {
+      //this.game.state.start("GameOver");
+    //});
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //  A simple background for our game
     var floor = game.add.sprite(0, 0, 'floor');
@@ -140,6 +152,32 @@ Game.prototype = {
 
   },
 
+  quitOption: function(text, callback) {
+    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
+    var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 10, text, optionStyle);
+    txt.anchor.setTo(0.5);
+    txt.stroke = "rgba(0,0,0,0";
+    txt.strokeThickness = 4;
+    var onOver = function (target) {
+      target.fill = "#FEFFD5";
+      target.stroke = "rgba(200,200,200,0.5)";
+      txt.useHandCursor = true;
+    };
+    var onOut = function (target) {
+      target.fill = "white";
+      target.stroke = "rgba(0,0,0,0)";
+      txt.useHandCursor = false;
+    };
+    //txt.useHandCursor = true;
+    txt.inputEnabled = true;
+    txt.events.onInputUp.add(callback, this);
+    txt.events.onInputOver.add(onOver, this);
+    txt.events.onInputOut.add(onOut, this);
+
+    this.optionCount ++;
+
+
+  },
  increaseStarVelocity: function()
   {
     star_velocity += 10
@@ -244,10 +282,14 @@ Game.prototype = {
         (box.key === crate_keys[2] && star.key === permanent_star_keys[2]))
     {
       score += 1;
+      //music.stop();
+      score_music.play();
+      //music.play();
     }
     else
     {
       score -= 1;
+      loss_music.play();
     }
     scoreText.text = 'Sorted\nItems: ' + score;
 

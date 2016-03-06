@@ -123,7 +123,7 @@ Mission.prototype = {
   create: function () {
     game.add.sprite(0, 0, 'map');
 
-    if (music.name !== "background_music" && playMusic) {
+    if (music.name !== "background_music" && gameOptions.playMusic) {
       music.stop();
       music = game.add.audio('background_music');
       music.loop = true;
@@ -138,7 +138,7 @@ Mission.prototype = {
      this.game.state.start("Game");
     });
     this.selectBurn('burn', function (e) {
-     this.game.state.start("GameOver");
+     this.game.state.start("Game");
     });
     this.selectRich('rich', function (e) {
      this.game.state.start("GameOver");

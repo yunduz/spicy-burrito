@@ -20,10 +20,14 @@ GameMenu.prototype = {
 
   },
 
+  preload: function() {
+      game.load.image('skyline', 'assets/images/skyline.png');
+  },
+
   startOption: function(text, callback) {
 
-    var optionStyle = { font: '80pt TheMinion', fill: 'red', align: 'center', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
-    var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 200, text, optionStyle);
+    var optionStyle = { font: '60pt TheMinion', fill: 'red', align: 'center', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
+    var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 110, text, optionStyle);
 
     txt.anchor.setTo(0.5);
     txt.stroke = "rgba(0,0,0,0";
@@ -78,19 +82,20 @@ GameMenu.prototype = {
 
   create: function () {
 
-    // if (music.name !== "background_music" && playMusic) {
-    //   music.stop();
-    //   music = game.add.audio('background_music');
-    //   music.loop = true;
-    //   music.play();
-    // }
+    if (music.name !== "background_music" && gameOptions.playMusic) {
+      music.stop();
+      music = game.add.audio('background_music');
+      music.loop = true;
+      music.play();
+    }
 
-    game.stage.backgroundColor = "#4488AA";
+    game.add.sprite(0, 0, 'skyline');
+    //game.stage.backgroundColor = "#4488AA";
     game.stage.disableVisibilityChange = true;
     //game.add.sprite(0, 0, 'menu-bg');
-    game.add.existing(this.titleText);
+    //game.add.existing(this.titleText);
 
-    this.startOption('Start', function () {
+    this.startOption('Start Sorting', function () {
       game.state.start("Mission");
     });
     this.creditOption('Credits', function () {

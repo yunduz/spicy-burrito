@@ -4,6 +4,7 @@ GameOver.prototype = {
 
   preload: function () {
     this.optionCount = 1;
+    game.load.audio('winner_music', 'assets/sound/WINNER.wav');
   },
 
   addMenuOption: function(text, callback) {
@@ -41,16 +42,20 @@ GameOver.prototype = {
   create: function () {
     //game.add.sprite(0, 0, 'gameover-bg');
 
-    if (music.name !== "background_music" && playMusic) {
-     music.stop();
+    if (music.name == "game_music" && gameOptions.playMusic) {
+      music.stop();
+      music = game.add.audio('winner_music');
+      //music.loop = true;
+      music.play();
     }
-
     var titleStyle = { font: 'bold 60pt TheMinion', fill: '#FDFFB5', align: 'center'};
     var text = game.add.text(game.world.centerX, 100, "Game Over", titleStyle);
     text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     text.anchor.set(0.5);
 
     this.addMenuOption('Share Score', function (e) {
+      //winner_music.play();
+
       this.tweetscore();
     });
     this.addMenuOption('Volunteer', function (e) {
