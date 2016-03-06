@@ -10,7 +10,6 @@ Splash.prototype = {
     game.load.script('game', 'states/Game.js');
     game.load.script('gameover','states/GameOver.js');
     game.load.script('credits', 'states/Credits.js');
-    game.load.script('gamemission','states/GameMission.js');
     game.load.script('mission','states/Mission.js');
   },
 
@@ -38,7 +37,6 @@ Splash.prototype = {
 
   addGameStates: function () {
     game.state.add("GameMenu",GameMenu);
-    game.state.add("GameMission",GameMission);
     game.state.add("Mission",Mission);
     game.state.add("Game",Game);
     game.state.add("GameOver",GameOver);
