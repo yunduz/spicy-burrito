@@ -17,6 +17,11 @@
   var g_height = 600;
 
   var star_keys = ['pasta_small', 'butter_small', 'apple_small'];
+  var permanent_star_keys = ['pasta_small', 'butter_small', 'apple_small'];
+  var crate_keys = [
+    'crate_smal_1year',
+    'crate_smal_6months',
+    'crate_smal_perishable'];
 
   var game = new Phaser.Game(
     g_width, g_height,
@@ -37,9 +42,16 @@
     game.load.image('pb', 'assets/peanut_butter_mix.jpg');
     game.load.spritesheet('button', '/assets/button_sprite_sheet.png', 193, 71);
 
+    //load food items
     for(var i = 0; i < star_keys.length; i++)
     {
       game.load.image(star_keys[i], 'assets/' + star_keys[i] + '.png');
+    }
+
+    //load crates
+    for(var i = 0; i < star_keys.length; i++)
+    {
+      game.load.image(crate_keys[i], 'assets/' + crate_keys[i] + '.png');
     }
 
   }
@@ -68,13 +80,13 @@
     boxes.enableBody = true;
     for (var i = 0; i < 3; i++)
     {
-      var key = 'box';
-      if(i===2)
-      {
-        key = 'box2';
-      }
-      var box = boxes.create(50+i*250, game.world.height-64, key);
-      box.scale.setTo(0.3,1);
+      var key = crate_keys[i];
+      // if(i===2)
+      // {
+      //   key = 'box2';
+      // }
+      var box = boxes.create(90+i*250, game.world.height-150, key);
+      //box.scale.setTo(0.3,1);
       box.body.immovable = true;
     }
 
@@ -204,8 +216,9 @@
 
     // Removes the star from the screen
     star.kill();
-    if((box.key === 'box' && star.key === 'star') ||
-        (box.key === 'box2' && star.key === 'star2'))
+    if((box.key === crate_keys[0] && star.key === permanent_star_keys[0]) ||
+        (box.key === crate_keys[1] && star.key === permanent_star_keys[1]) ||
+        (box.key === crate_keys[2] && star.key === permanent_star_keys[2]))
     {
       score += 1;
     }
@@ -214,6 +227,7 @@
       score -= 1;
     }
     scoreText.text = 'Score:' + score;
+    //scoreText.text = 'box.key:' + box.key + ' star.key:' + star.key + '\n--'+crate_keys[2]+'--'+star_keys[2];
 
   }
 
