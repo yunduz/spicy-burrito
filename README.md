@@ -7,7 +7,7 @@ We created this web game during the "VanHacks Hackathon for Social Good". This c
 # Demo
 http://yawarkhan.com/food-sorter/index.html#
 
-# Contributors
+# Developers
 Evgeny Vinnik 
 
 Mehrnoosh Ebrahimipour
@@ -15,3 +15,6 @@ Mehrnoosh Ebrahimipour
 Yunduz Rakhmangulova
 
 Yawar Mohammad Khan
+
+# Music By
+http://incompetech.com
