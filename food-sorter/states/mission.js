@@ -5,19 +5,23 @@ Mission.prototype = {
   preload: function () {
     this.optionCount = 1;
     game.load.image('map', 'assets/images/map.png');
-    game.load.spritesheet('button', 'assets/images/sprite_pin.png',465,640,2);
-    game.load.image('pin', 'assets/images/sprite_pin.png');
+    //game.load.spritesheet('button', 'assets/images/sprite_pin.png',465,640,2);
+    game.load.spritesheet('vanpin', 'assets/images/sprite_pin_vancouver.png',46,60,2);
+    game.load.spritesheet('burnpin', 'assets/images/sprite_pin_burnaby.png',46,60,2);
+    game.load.spritesheet('richpin', 'assets/images/sprite_pin_richmond.png',46,60,2);
     
   },
   selectVan: function(text, callback) {
 
     var vanpin;
 
-    vanpin = game.add.button(game.world.centerX-200, game.world.centerY-70, 'button', vanOnClick, this, 0, 1);
-    vanpin.scale.x=0.05;
-    vanpin.scale.y=0.05;
+    vanpin = game.add.button(game.world.centerX-200, game.world.centerY-70, 'vanpin', vanOnClick, this, 1, 0);
+    //vanpin.scale.x=0.05;
+    //vanpin.scale.y=0.05;
 
-    //game.add.tween(vanpin).to({ y: 220 }, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+    game.add.tween(vanpin).to({ y: 250 }, 1100, Phaser.Easing.Quadratic.InOut, true, 0, 1100, true);
+    vanpin.alpha=0.5;
+    game.add.tween(vanpin).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
     var onOver = function (target) {
       vanpin.useHandCursor = true;
@@ -41,11 +45,11 @@ Mission.prototype = {
 
     var burnpin;
 
-    burnpin = game.add.button(game.world.centerX+100, game.world.centerY-120, 'button', burnOnClick, this, 0, 1);
-    burnpin.scale.x=0.05;
-    burnpin.scale.y=0.05;
+    burnpin = game.add.button(game.world.centerX+100, game.world.centerY-120, 'burnpin', burnOnClick, this, 1, 0);
+    //burnpin.scale.x=0.05;
+    //burnpin.scale.y=0.05;
 
-    //game.add.tween(burnpin).to({ y: 190 }, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+    game.add.tween(burnpin).to({ y: 200 }, 1300, Phaser.Easing.Quadratic.InOut, true, 0, 1300, true);
 
     var onOver = function (target) {
       burnpin.useHandCursor = true;
@@ -68,11 +72,11 @@ Mission.prototype = {
   
     var richpin;
 
-    richpin = game.add.button(game.world.centerX-160, game.world.centerY+140, 'button', richOnClick, this, 0, 1);
-    richpin.scale.x=0.05;
-    richpin.scale.y=0.05;
+    richpin = game.add.button(game.world.centerX-160, game.world.centerY+140, 'richpin', richOnClick, this, 1, 0);
+    //richpin.scale.x=0.05;
+    //richpin.scale.y=0.05;
 
-    //game.add.tween(richpin).to({ y: 470 }, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+    game.add.tween(richpin).to({ y: 460 }, 1200, Phaser.Easing.Quadratic.InOut, true, 0, 1200, true);
 
     var onOver = function (target) {
       richpin.useHandCursor = true;
