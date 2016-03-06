@@ -128,7 +128,7 @@ Mission.prototype = {
     var txt = game.add.text(game.world.centerX-100, 20, 'Choose Mission', optionStyle);
 
     this.selectVan('van', function (e) {
-     this.game.state.start("GameOver");
+     this.game.state.start("Game");
     });
     this.selectBurn('burn', function (e) {
      this.game.state.start("GameOver");
