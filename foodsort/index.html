@@ -37,7 +37,7 @@
     game.load.image('box2', 'assets/platform2.png');
 
     game.load.image('close', 'assets/orb-red.png');
-    game.load.image('pb', 'assets/peanut_butter_mix.jpg');
+    game.load.image('pb', 'assets/peanut_butter_nutrition_popup.jpg');
     game.load.spritesheet('button', '/assets/button_sprite_sheet.png', 193, 71);
 
     //load food items
@@ -63,7 +63,7 @@
   var scoreText;
   var deadline;
   var current_star_keys = [];
-  var is_first_time = true;
+  var star_velocity = 60;
 
   var button;
   var popup;
@@ -109,6 +109,12 @@
 
     game.time.events.loop(Phaser.Timer.SECOND * 2, addStars, this);
     game.time.events.loop(Phaser.Timer.SECOND * 10, addNewStarType, this);
+    game.time.events.loop(Phaser.Timer.SECOND * 5, increaseStarVelocity, this);
+  }
+
+  function increaseStarVelocity()
+  {
+    star_velocity += 20
   }
 
   function unpause(event)
@@ -145,11 +151,11 @@
     //  Create a star inside of the 'stars' group
     var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
 
-    var star = stars.create(getRandomIntInclusive(205, 595), 0, key);
+    var star = stars.create(getRandomIntInclusive(205, 555), 0, key);
 
     //  Let gravity do its thing
 
-    star.body.velocity.y = 60;
+    star.body.velocity.y = star_velocity;
 
     star.checkWorldBounds = true;
     star.outOfBoundsKill = true;
@@ -184,10 +190,6 @@
     popup.addChild(closeButton);
 
     var style = { font: "32px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: popup.width, align: "center", backgroundColor: "#ffff00" };
-
-    text = game.add.text(0, 0, "SAMPLE TEXT", style);
-    text.anchor.set(0.5);
-    popup.addChild(text);
 
   }
 
@@ -232,7 +234,7 @@
   function render()
   {
     game.debug.text("current_keys: " + current_star_keys, 20, 20);
-    game.debug.pointer( game.input.activePointer );
+    //game.debug.pointer( game.input.activePointer );
   }
 
   // Returns a random integer between min (included) and max (included)
