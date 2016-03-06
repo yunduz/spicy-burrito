@@ -16,6 +16,8 @@
   var g_width = 800;
   var g_height = 600;
 
+  var star_keys = ['pasta_small', 'butter_small', 'apple_small'];
+
   var game = new Phaser.Game(
     g_width, g_height,
     Phaser.AUTO, '',
@@ -35,6 +37,11 @@
     game.load.image('pb', 'assets/peanut_butter_mix.jpg');
     game.load.spritesheet('button', '/assets/button_sprite_sheet.png', 193, 71);
 
+    for(var i = 0; i < star_keys.length; i++)
+    {
+      game.load.image(star_keys[i], 'assets/' + star_keys[i] + '.png');
+    }
+
   }
   var player;
   var boxes;
@@ -43,7 +50,6 @@
   var score = 0;
   var scoreText;
   var deadline;
-  var star_keys = ['star2', 'star'];
   var current_star_keys = [];
   var is_first_time = true;
 
@@ -130,7 +136,7 @@
     //  Create a star inside of the 'stars' group
     var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
     var star = stars.create(g_width/2, 0, key);
-    star.scale.setTo(2,2);
+
     //  Let gravity do its thing
     //star.body.gravity.y = 10;
     star.body.velocity.y = 60;
