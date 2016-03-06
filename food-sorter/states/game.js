@@ -4,7 +4,12 @@ var g_width = 800;
   var g_height = 600;
 
   var star_keys = ['pasta_small', 'butter_small', 'apple_small'];
-  var permanent_star_keys = ['pasta_small', 'butter_small', 'apple_small'];
+  var magical_item = 'magic_apple';
+  var permanent_star_keys = [
+    'pasta_small',
+    'butter_small',
+    'apple_small',
+    magical_item];
   var crate_keys = [
     'crate_smal_1year',
     'crate_smal_6months',
@@ -29,6 +34,8 @@ var g_width = 800;
   var countDownTimerText;
   var countDownTimerEvent;
 
+  var newStarTypeEvent;
+
 Game.prototype = {
 
   preload: function () {
@@ -38,6 +45,7 @@ Game.prototype = {
     game.load.image('floor', 'assets/images/floor.png');
     game.load.image('box', 'assets/images/platform.png');
     game.load.image('close', 'assets/images/cross_small.png');
+    game.load.image(magical_item, 'assets/images/'+magical_item+'.png');
 
     //load food items
     for(var i = 0; i < star_keys.length; i++)
@@ -128,7 +136,7 @@ Game.prototype = {
     this.addStars();
 
     game.time.events.loop(Phaser.Timer.SECOND * 2, this.addStars, this);
-    game.time.events.loop(Phaser.Timer.SECOND * 10, this.addNewStarType, this);
+    newStarTypeEvent = game.time.events.loop(Phaser.Timer.SECOND * 10, this.addNewStarType, this);
     game.time.events.loop(Phaser.Timer.SECOND * 5, this.increaseStarVelocity, this);
     countDownTimerEvent = this.time.events.loop(Phaser.Timer.SECOND, this.updateCountDownTimer, this);
   },
@@ -241,12 +249,19 @@ Game.prototype = {
       current_star_keys.push(star_keys.pop());
 
     }
+    else {
+      //remove event to add new star types
+      game.time.events.remove(newStarTypeEvent);
+      //add new magical apple
+      current_star_keys.push(magical_item);
+    }
   },
 
   addStars: function()
   {
     //  Create a star inside of the 'stars' group
-    var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
+    //var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
+    var key = current_star_keys[this.getRandomIntInclusive(0, current_star_keys.length-1)];
 
     var star = stars.create(this.getRandomIntInclusive(205, 555), 0, key);
 
@@ -316,12 +331,18 @@ Game.prototype = {
       score_music.play();
       //music.play();
     }
+    else if (box.key === crate_keys[2] && star.key === permanent_star_keys[3]) {
+      score += 15;
+      countDownTimer += 5;
+      score_music.play();
+    }
     else
     {
       score -= 5;
       loss_music.play();
     }
     scoreText.text = 'Sorted\nItems: ' + score;
+    countDownTimerText.setText('Time: ' + countDownTimer);
 
   },
 
