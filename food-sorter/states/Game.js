@@ -34,7 +34,7 @@ Game.prototype = {
 
     //game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.load.image('sky', 'assets/images/sky.png');
+    game.load.image('floor', 'assets/images/floor.png');
     game.load.image('box', 'assets/images/platform.png');
 
     game.load.image('close', 'assets/images/orb-red.png');
@@ -73,8 +73,7 @@ Game.prototype = {
     }
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //  A simple background for our game
-    var sky = game.add.sprite(0, 0, 'sky');
-    sky.scale.setTo(2, 1.5);
+    var floor = game.add.sprite(0, 0, 'floor');
 
     var conveyer = game.add.sprite(150, 0, 'conveyer');
     conveyer.scale.setTo(2, 2);
@@ -94,7 +93,7 @@ Game.prototype = {
     deadline.scale.setTo(100, 0.2);
     deadline.visible = false;
     game.physics.arcade.enable(deadline);
-    
+
     // //  Finally some stars to collect
     stars = game.add.group();
     //  We will enable physics for any star that is created in this group
@@ -113,7 +112,7 @@ Game.prototype = {
     game.time.events.loop(Phaser.Timer.SECOND * 5, this.increaseStarVelocity, this);
   },
 
- 
+
   addMenuOption: function(text, callback) {
     var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
     var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 200, text, optionStyle);
@@ -267,5 +266,5 @@ Game.prototype = {
   {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  
+
 };
