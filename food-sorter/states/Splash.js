@@ -20,6 +20,10 @@ Splash.prototype = {
     //game.load.image('gameover-bg', 'assets/images/gameover-bg.jpg');
   },
 
+  loadBgm: function () {
+    game.load.audio('background_music', 'assets/sound/Aces_High.wav');
+  },
+
   loadFonts: function () {
     WebFontConfig = {
       custom: {
@@ -33,6 +37,7 @@ Splash.prototype = {
     this.loadScripts();
     this.loadImages();
     this.loadFonts();
+    this.loadBgm();
   },
 
   addGameStates: function () {
@@ -43,8 +48,15 @@ Splash.prototype = {
     game.state.add("Credits",Credits);
   },
 
+   addGameMusic: function () {
+    music = game.add.audio('background_music');
+    //music.loop = true;
+    //music.play();
+  },
+
   create: function() {
     this.addGameStates();
+    this.addGameMusic();
     game.state.start("GameMenu");
     
   }

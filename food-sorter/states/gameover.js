@@ -7,8 +7,8 @@ GameOver.prototype = {
   },
 
   addMenuOption: function(text, callback) {
-    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
-    var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 300, text, optionStyle);
+    var optionStyle = { font: '20pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
+    var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 130, text, optionStyle);
     txt.anchor.setTo(0.5);
     txt.stroke = "rgba(0,0,0,0";
     txt.strokeThickness = 4;
@@ -31,17 +31,36 @@ GameOver.prototype = {
     this.optionCount ++;
   },
 
+  tweetscore: function(){       
+   var tweetbegin = 'http://twitter.com/home?status=';
+   var tweettxt = 'I scored '+2+' at this game -' + window.location.href + '.';
+   var finaltweet = tweetbegin + encodeURIComponent(tweettxt);       
+   window.open(finaltweet,'_blank');    
+ },
+
   create: function () {
     //game.add.sprite(0, 0, 'gameover-bg');
+
+    if (music.name !== "background_music" && playMusic) {
+      music.stop();
+    }
+
     var titleStyle = { font: 'bold 60pt TheMinion', fill: '#FDFFB5', align: 'center'};
     var text = game.add.text(game.world.centerX, 100, "Game Over", titleStyle);
     text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     text.anchor.set(0.5);
-    this.addMenuOption('Play Again', function (e) {
-      this.game.state.start("Game");
+
+    this.addMenuOption('Share Score', function (e) {
+      this.tweetscore();
     });
-    this.addMenuOption('Main Menu', function (e) {
-      this.game.state.start("GameMenu");
-    })
+    this.addMenuOption('Volunteer', function (e) {
+      window.open("http://www.yawarkhan.com","_blank");
+    });
+    this.addMenuOption('Donate', function (e) {
+      window.open("http://www.yawarkhan.com","_blank");
+    });
+    this.addMenuOption('Play Again', function (e) {
+      this.game.state.start("Mission");
+    });
   }
 };
