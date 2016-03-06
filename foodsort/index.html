@@ -16,7 +16,7 @@
   var g_width = 800;
   var g_height = 600;
 
-  var game = new Phaser.Game(g_width, g_height, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+  var game = new Phaser.Game(g_width, g_height, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
   function preload() {
     // game.load.baseURL = 'http://examples.phaser.io/assets/';
     // game.load.crossOrigin = 'anonymous';
@@ -34,7 +34,10 @@
   var score = 0;
   var scoreText;
   var deadline;
-  var star_keys = ['star', 'star2'];
+  var star_keys = ['star2', 'star'];
+  var current_star_keys = [];
+  var is_first_time = true;
+
   function create() {
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -83,13 +86,30 @@
 
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
+    //shor first popup
+
+    addNewStarType();
+    //add first star
+    addStars();
+
     game.time.events.loop(Phaser.Timer.SECOND * 2, addStars, this);
+    game.time.events.loop(Phaser.Timer.SECOND * 10, addNewStarType, this);
+  }
+
+  function addNewStarType()
+  {
+    if(star_keys.length > 0)
+    {
+      //TODO: if it's the first time we're running, show instructions
+
+      current_star_keys.push(star_keys.pop());
+    }
   }
 
   function addStars()
   {
     //  Create a star inside of the 'stars' group
-    var key = star_keys[Math.floor(Math.random()*star_keys.length)];
+    var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
     var star = stars.create(g_width/2, 0, key);
     star.scale.setTo(2,2);
     //  Let gravity do its thing
@@ -139,6 +159,7 @@
 
   function render()
   {
+    game.debug.text("current_keys: " + current_star_keys, 20, 20);
       // game.debug.text( "justpressedrate: " + isOver, 200, 100 );
       // game.debug.text( "Pointer: (" + game.input.pointer1.x + ", " + game.input.pointer1.y + ")", 200, 116 );
   }
