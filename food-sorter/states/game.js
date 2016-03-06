@@ -25,6 +25,9 @@ var g_width = 800;
 
   var popup;
 
+  var countDownTimer = 10;
+  var countDownTimerText;
+  var countDownTimerEvent;
 
 Game.prototype = {
 
@@ -106,6 +109,7 @@ Game.prototype = {
     stars.enableBody = true;
 
     scoreText = game.add.text(12, 12, 'Sorted\nItems: 0', { fontSize: '28px', fill: '#000' });
+    countDownTimerText = game.add.text(12, 100, 'Time: '+countDownTimer,  { fontSize: '28px', fill: '#000' });
 
     this.quitOption('Quit', function (e) {
       localStorage.setItem("finalscore", score);
@@ -122,8 +126,18 @@ Game.prototype = {
     game.time.events.loop(Phaser.Timer.SECOND * 2, this.addStars, this);
     game.time.events.loop(Phaser.Timer.SECOND * 10, this.addNewStarType, this);
     game.time.events.loop(Phaser.Timer.SECOND * 5, this.increaseStarVelocity, this);
+    countDownTimerEvent = this.time.events.loop(Phaser.Timer.SECOND, this.updateCountDownTimer, this);
   },
 
+  updateCountDownTimer: function() {
+    countDownTimer -= 1;
+    countDownTimerText.setText('Time: ' + countDownTimer);
+    if(countDownTimer === 0) {
+      //To remove event:
+      game.time.events.remove(countDownTimerEvent);
+
+    }
+  },
 
   addMenuOption: function(text, callback) {
     var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
