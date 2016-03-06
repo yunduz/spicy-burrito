@@ -9,7 +9,7 @@ GameOver.prototype = {
 
   addMenuOption: function(text, callback) {
     var optionStyle = { font: '20pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
-    var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 130, text, optionStyle);
+    var txt = game.add.text(game.world.centerX-200, (this.optionCount * 80) + 130, text, optionStyle);
     txt.anchor.setTo(0.5);
     txt.stroke = "rgba(0,0,0,0";
     txt.strokeThickness = 4;
@@ -54,10 +54,9 @@ GameOver.prototype = {
     text.anchor.set(0.5);
 
     this.addMenuOption('Share Score', function (e) {
-      //winner_music.play();
-
       this.tweetscore();
     });
+    game.add.text(game.world.centerX+100, 200, finalScore, { font: 'bold 60pt TheMinion', fill: 'red', align: 'center'});
     this.addMenuOption('Volunteer', function (e) {
       window.open("https://www.foodbank.bc.ca/get-involved/volunteer/","_blank");
     });

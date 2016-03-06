@@ -20,7 +20,7 @@ Mission.prototype = {
     //vanpin.scale.y=0.05;
 
     game.add.tween(vanpin).to({ y: 250 }, 1100, Phaser.Easing.Quadratic.InOut, true, 0, 1100, true);
-    
+
     var onOver = function (target) {
       vanpin.useHandCursor = true;
     };
@@ -143,7 +143,7 @@ Mission.prototype = {
      this.game.state.start("Game");
     });
     this.selectRich('rich', function (e) {
-     this.game.state.start("GameOver");
+     this.game.state.start("Game");
     });
 
     this.addMenuOption('Back', function (e) {

@@ -25,7 +25,7 @@ var g_width = 800;
 
   var button;
   var popup;
-
+  finalScore = 0;
 
 
 Game.prototype = {
@@ -112,6 +112,7 @@ Game.prototype = {
     scoreText = game.add.text(12, 12, 'Sorted\nItems: 0', { fontSize: '28px', fill: '#000' });
 
     this.quitOption('Quit', function (e) {
+      finalScore = this.score;
       this.game.state.start("GameOver");
     });
 
@@ -156,7 +157,7 @@ Game.prototype = {
 
   quitOption: function(text, callback) {
     var optionStyle = { font: '30pt TheMinion', fill: 'red', align: 'right', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
-    var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 100, text, optionStyle);
+    var txt = game.add.text(game.world.centerX+320, 40, text, optionStyle);
     txt.anchor.setTo(0.5);
     txt.stroke = "rgba(0,0,0,0";
     txt.strokeThickness = 4;
@@ -166,7 +167,7 @@ Game.prototype = {
       txt.useHandCursor = true;
     };
     var onOut = function (target) {
-      target.fill = "white";
+      target.fill = "red";
       target.stroke = "rgba(0,0,0,0)";
       txt.useHandCursor = false;
     };
