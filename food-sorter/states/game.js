@@ -23,7 +23,6 @@ var g_width = 800;
   var current_star_keys = [];
   var star_velocity = 60;
 
-  var button;
   var popup;
 
 
@@ -34,10 +33,8 @@ Game.prototype = {
     //game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.load.image('floor', 'assets/images/floor.png');
+     game.load.image('close', 'assets/images/cross_small.png');
     
-    game.load.image('close', 'assets/images/cross_small.png');
-    game.load.spritesheet('button', '/assets/images/button_sprite_sheet.png', 193, 71);
-
     //load food items
     for(var i = 0; i < star_keys.length; i++)
     {
