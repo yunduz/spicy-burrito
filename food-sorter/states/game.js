@@ -33,8 +33,9 @@ Game.prototype = {
     //game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.load.image('floor', 'assets/images/floor.png');
-     game.load.image('close', 'assets/images/cross_small.png');
-    
+    game.load.image('box', 'assets/images/platform.png');
+    game.load.image('close', 'assets/images/cross_small.png');
+
     //load food items
     for(var i = 0; i < star_keys.length; i++)
     {
