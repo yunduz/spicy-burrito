@@ -116,8 +116,8 @@ Game.prototype = {
     //  We will enable physics for any star that is created in this group
     stars.enableBody = true;
 
-    scoreText = game.add.text(12, 12, 'Sorted\nItems: 0', { fontSize: '28px', fill: '#000' });
-    countDownTimerText = game.add.text(12, 100, 'Time: '+countDownTimer,  { fontSize: '28px', fill: '#000' });
+    scoreText = game.add.text(12, 12, 'Score: 0', { fontSize: '28px', fill: '#000' });
+    countDownTimerText = game.add.text(12, 60, 'Time: '+countDownTimer,  { fontSize: '28px', fill: '#000' });
 
     this.quitOption('Quit', function (e) {
       // localStorage.setItem("finalscore", score);
@@ -341,7 +341,7 @@ Game.prototype = {
       score -= 5;
       loss_music.play();
     }
-    scoreText.text = 'Sorted\nItems: ' + score;
+    scoreText.text = 'Score: ' + score;
     countDownTimerText.setText('Time: ' + countDownTimer);
 
   },
