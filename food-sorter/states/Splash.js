@@ -6,11 +6,11 @@ Splash.prototype = {
     game.load.script('style', 'lib/style.js');
     game.load.script('mixins', 'lib/mixins.js');
     game.load.script('WebFont', 'vendor/webfontloader.js');
-    game.load.script('gamemenu','states/GameMenu.js');
-    game.load.script('game', 'states/Game.js');
-    game.load.script('gameover','states/GameOver.js');
-    game.load.script('credits', 'states/Credits.js');
-    game.load.script('mission','states/Mission.js');
+    game.load.script('gamemenu','states/gamemenu.js');
+    game.load.script('game', 'states/game.js');
+    game.load.script('gameover','states/gameover.js');
+    game.load.script('credits', 'states/credits.js');
+    game.load.script('mission','states/mission.js');
   },
 
   // varios freebies found from google image search
@@ -21,7 +21,7 @@ Splash.prototype = {
   },
 
   loadBgm: function () {
-    game.load.audio('background_music', 'assets/sound/Blip_Stream.wav');
+    game.load.audio('background_music', 'assets/sound/Blip_Stream_short.mp3');
   },
 
   loadFonts: function () {
@@ -50,7 +50,7 @@ Splash.prototype = {
 
    addGameMusic: function () {
     music = game.add.audio('background_music');
-    //music.loop = true;
+    music.loop = true;
     //music.play();
   },
 

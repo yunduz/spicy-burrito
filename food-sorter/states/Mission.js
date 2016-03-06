@@ -123,6 +123,13 @@ Mission.prototype = {
   create: function () {
     game.add.sprite(0, 0, 'map');
 
+    if (music.name !== "background_music" && playMusic) {
+      music.stop();
+      music = game.add.audio('background_music');
+      music.loop = true;
+      music.play();
+    }
+
     this.stage.disableVisibilityChange = true;
     var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
     var txt = game.add.text(game.world.centerX-100, 20, 'Choose Mission', optionStyle);
