@@ -37,7 +37,7 @@ Game.prototype = {
     game.load.image('floor', 'assets/images/floor.png');
     game.load.image('box', 'assets/images/platform.png');
 
-    game.load.image('close', 'assets/images/orb-red.png');
+    game.load.image('close', 'assets/images/cross_small.png');
     game.load.spritesheet('button', '/assets/images/button_sprite_sheet.png', 193, 71);
 
     //load food items
@@ -99,7 +99,7 @@ Game.prototype = {
     //  We will enable physics for any star that is created in this group
     stars.enableBody = true;
 
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(12, 12, 'Sorted\nItems: 0', { fontSize: '28px', fill: '#000' });
 
     game.input.onDown.add(this.unpause, self);
 
@@ -249,7 +249,7 @@ Game.prototype = {
     {
       score -= 1;
     }
-    scoreText.text = 'Score:' + score;
+    scoreText.text = 'Sorted\nItems: ' + score;
 
   },
 
