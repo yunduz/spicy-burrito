@@ -22,6 +22,10 @@
     'crate_smal_1year',
     'crate_smal_6months',
     'crate_smal_perishable'];
+  var popup_keys = [
+    'spaghetti_nutrition_popup',
+    'peanut_butter_nutrition_popup',
+    'peanut_butter_nutrition_popup'];
 
   var game = new Phaser.Game(
     g_width, g_height,
@@ -31,13 +35,9 @@
   function preload() {
 
     game.load.image('sky', 'assets/sky.png');
-    game.load.image('star', 'assets/star.png');
-    game.load.image('star2', 'assets/star2.png');
     game.load.image('box', 'assets/platform.png');
-    game.load.image('box2', 'assets/platform2.png');
 
     game.load.image('close', 'assets/orb-red.png');
-    game.load.image('pb', 'assets/peanut_butter_nutrition_popup.jpg');
     game.load.spritesheet('button', '/assets/button_sprite_sheet.png', 193, 71);
 
     //load food items
@@ -47,9 +47,14 @@
     }
 
     //load crates
-    for(var i = 0; i < star_keys.length; i++)
+    for(var i = 0; i < crate_keys.length; i++)
     {
       game.load.image(crate_keys[i], 'assets/' + crate_keys[i] + '.png');
+    }
+
+    for(var i = 0; i < popup_keys.length; i++)
+    {
+      game.load.image(popup_keys[i], 'assets/' + popup_keys[i] + '.jpg');
     }
 
     game.load.spritesheet('conveyer', 'assets/conveyour.png', 250, 150);
@@ -67,7 +72,6 @@
 
   var button;
   var popup;
-  var popup_keys = ['star', 'pb'];
 
   function create() {
     //  We're going to be using physics, so enable the Arcade Physics system
@@ -92,6 +96,7 @@
 
     deadline = game.add.sprite(0, 300, 'box');
     deadline.scale.setTo(100, 0.2);
+    deadline.visible = false;
     game.physics.arcade.enable(deadline);
 
     // //  Finally some stars to collect
@@ -114,7 +119,7 @@
 
   function increaseStarVelocity()
   {
-    star_velocity += 20
+    star_velocity += 10
   }
 
   function unpause(event)
@@ -168,7 +173,7 @@
   function addPopUpSprite(img_key)
   {
     //popup = game.add.sprite(game.world.centerX, game.world.centerY, img_key);
-    popup = game.add.sprite(game.world.centerX, game.world.centerY, 'pb');
+    popup = game.add.sprite(game.world.centerX, game.world.centerY, img_key);
     popup.alpha = 0.8;
     popup.anchor.set(0.5);
     popup.inputEnabled = true;
