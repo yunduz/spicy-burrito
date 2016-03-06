@@ -25,6 +25,7 @@
     game.load.image('star', 'assets/star.png');
     game.load.image('star2', 'assets/star2.png');
     game.load.image('box', 'assets/platform.png');
+    game.load.image('box2', 'assets/platform2.png');
   }
   var player;
   var boxes;
@@ -45,7 +46,12 @@
     boxes.enableBody = true;
     for (var i = 0; i < 3; i++)
     {
-      var box = boxes.create(50+i*250, game.world.height-64, 'box');
+      var key = 'box';
+      if(i===2)
+      {
+        key = 'box2';
+      }
+      var box = boxes.create(50+i*250, game.world.height-64, key);
       box.scale.setTo(0.3,1);
       box.body.immovable = true;
     }
@@ -110,7 +116,15 @@
 
     // Removes the star from the screen
     star.kill();
-    score += 1;
+    if((box.key === 'box' && star.key === 'star') ||
+        (box.key === 'box2' && star.key === 'star2'))
+    {
+      score += 1;
+    }
+    else
+    {
+      score -= 1;
+    }
     scoreText.text = 'Score:' + score;
 
   }
