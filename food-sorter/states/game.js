@@ -5,6 +5,8 @@ var g_width = 800;
 
   var star_keys = ['pasta_small', 'butter_small', 'apple_small'];
   var magical_item = 'magic_apple';
+  var magical_item_counter_const = 5;
+  var magical_item_counter = magical_item_counter_const;
   var permanent_star_keys = [
     'pasta_small',
     'butter_small',
@@ -149,6 +151,7 @@ Game.prototype = {
 
   resetCounters: function() {
     score=0;
+    magical_item_counter = magical_item_counter_const;
     star_velocity = 60;
     countDownTimer = 60;
   },
@@ -261,7 +264,26 @@ Game.prototype = {
   {
     //  Create a star inside of the 'stars' group
     //var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
-    var key = current_star_keys[this.getRandomIntInclusive(0, current_star_keys.length-1)];
+    var done = false;
+    while(!done)
+    {
+      var key = current_star_keys[this.getRandomIntInclusive(0, current_star_keys.length-1)];
+      if(key === magical_item)
+      {
+        if(magical_item_counter > 0)
+        {
+          continue;
+        }
+        else {
+          magical_item_counter = magical_item_counter_const;
+          done = true;
+        }
+      }
+      else {
+        magical_item_counter--;
+        done = true;
+      }
+    }
 
     var star = stars.create(this.getRandomIntInclusive(205, 555), 0, key);
 
@@ -333,7 +355,7 @@ Game.prototype = {
     }
     else if (box.key === crate_keys[2] && star.key === permanent_star_keys[3]) {
       score += 15;
-      countDownTimer += 5;
+      countDownTimer += 10;
       score_music.play();
     }
     else
