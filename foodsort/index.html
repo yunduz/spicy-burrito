@@ -23,6 +23,7 @@
 
     game.load.image('sky', 'assets/sky.png');
     game.load.image('star', 'assets/star.png');
+    game.load.image('star2', 'assets/star2.png');
     game.load.image('box', 'assets/platform.png');
   }
   var player;
@@ -32,6 +33,7 @@
   var score = 0;
   var scoreText;
   var deadline;
+  var star_keys = ['star', 'star2'];
   function create() {
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -80,26 +82,20 @@
 
   function addStars()
   {
-    //stars = game.add.group();
+    //  Create a star inside of the 'stars' group
+    var key = star_keys[Math.floor(Math.random()*star_keys.length)];
+    var star = stars.create(g_width/2, 0, key);
+    star.scale.setTo(2,2);
+    //  Let gravity do its thing
+    //star.body.gravity.y = 10;
+    star.body.velocity.y = 60;
 
-    //stars.setAll('body.velocity.y', 10);
-    //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++)
-    {
-      //  Create a star inside of the 'stars' group
-      var star = stars.create(i * 70, 0, 'star');
-      star.scale.setTo(2,2);
-      //  Let gravity do its thing
-      //star.body.gravity.y = 10;
-      star.body.velocity.y = 60;
+    star.checkWorldBounds = true;
+    star.outOfBoundsKill = true;
 
-      star.checkWorldBounds = true;
-      star.outOfBoundsKill = true;
-
-      //enaable drag
-      star.inputEnabled = true;
-      star.input.enableDrag(false);
-    }
+    //enaable drag
+    star.inputEnabled = true;
+    star.input.enableDrag(false);
   }
 
   function update() {
