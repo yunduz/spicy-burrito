@@ -16,14 +16,16 @@
   var g_width = 800;
   var g_height = 600;
 
-  var game = new Phaser.Game(g_width, g_height, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+  var game = new Phaser.Game(g_width, g_height, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
   function preload() {
     // game.load.baseURL = 'http://examples.phaser.io/assets/';
     // game.load.crossOrigin = 'anonymous';
 
     game.load.image('sky', 'assets/sky.png');
     game.load.image('star', 'assets/star.png');
+    game.load.image('star2', 'assets/star2.png');
     game.load.image('box', 'assets/platform.png');
+    game.load.image('box2', 'assets/platform2.png');
   }
   var player;
   var boxes;
@@ -31,6 +33,11 @@
   var stars;
   var score = 0;
   var scoreText;
+  var deadline;
+  var star_keys = ['star2', 'star'];
+  var current_star_keys = [];
+  var is_first_time = true;
+
   function create() {
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -42,43 +49,121 @@
     boxes.enableBody = true;
     for (var i = 0; i < 3; i++)
     {
-      var box = boxes.create(50+i*250, game.world.height-64, 'box');
+      var key = 'box';
+      if(i===2)
+      {
+        key = 'box2';
+      }
+      var box = boxes.create(50+i*250, game.world.height-64, key);
       box.scale.setTo(0.3,1);
       box.body.immovable = true;
     }
 
-    //  Finally some stars to collect
+    deadline = game.add.sprite(0, 300, 'box');
+    deadline.scale.setTo(100, 0.2);
+    game.physics.arcade.enable(deadline);
+
+    // //  Finally some stars to collect
     stars = game.add.group();
     //  We will enable physics for any star that is created in this group
     stars.enableBody = true;
-    //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++)
-    {
-      //  Create a star inside of the 'stars' group
-      var star = stars.create(i * 70, 0, 'star');
-      //  Let gravity do its thing
-      star.body.gravity.y = 10;
-
-      //enaable drag
-      star.inputEnabled = true;
-      star.input.enableDrag(false);
-    }
+    // //  We will enable physics for any star that is created in this group
+    // stars.enableBody = true;
+    // //stars.setAll('body.velocity.y', 10);
+    // //  Here we'll create 12 of them evenly spaced apart
+    // for (var i = 0; i < 12; i++)
+    // {
+    //   //  Create a star inside of the 'stars' group
+    //   var star = stars.create(i * 70, 0, 'star');
+    //   //  Let gravity do its thing
+    //   //star.body.gravity.y = 10;
+    //   star.body.velocity.y = 10;
+    //
+    //   //enaable drag
+    //   star.inputEnabled = true;
+    //   star.input.enableDrag(false);
+    // }
 
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-  }
-  function update() {
-    game.physics.arcade.collide(stars, boxes);
-    game.physics.arcade.overlap(boxes, stars, collectItem, null, this);
+
+    //shor first popup
+
+    addNewStarType();
+    //add first star
+    addStars();
+
+    game.time.events.loop(Phaser.Timer.SECOND * 2, addStars, this);
+    game.time.events.loop(Phaser.Timer.SECOND * 10, addNewStarType, this);
   }
 
-  function collectItem (box, star) {
+  function addNewStarType()
+  {
+    if(star_keys.length > 0)
+    {
+      //TODO: if it's the first time we're running, show instructions
+
+      current_star_keys.push(star_keys.pop());
+    }
+  }
+
+  function addStars()
+  {
+    //  Create a star inside of the 'stars' group
+    var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
+    var star = stars.create(g_width/2, 0, key);
+    star.scale.setTo(2,2);
+    //  Let gravity do its thing
+    //star.body.gravity.y = 10;
+    star.body.velocity.y = 60;
+
+    star.checkWorldBounds = true;
+    star.outOfBoundsKill = true;
+
+    //enaable drag
+    star.inputEnabled = true;
+    star.input.enableDrag(false);
+  }
+
+  function update() {
+    //game.physics.arcade.collide(stars, boxes);
+    game.physics.arcade.overlap(boxes, stars, collectItem, null, this);
+
+    game.physics.arcade.overlap(deadline, stars, removeStar, null, this);
+  }
+
+  function collectItem (box, star)
+  {
 
     // Removes the star from the screen
     star.kill();
-    score += 1;
+    if((box.key === 'box' && star.key === 'star') ||
+        (box.key === 'box2' && star.key === 'star2'))
+    {
+      score += 1;
+    }
+    else
+    {
+      score -= 1;
+    }
     scoreText.text = 'Score:' + score;
 
   }
+
+  function removeStar(deadline, star)
+  {
+    if(!star.input.isDragged)
+    {
+      star.kill();
+    }
+  }
+
+  function render()
+  {
+    game.debug.text("current_keys: " + current_star_keys, 20, 20);
+      // game.debug.text( "justpressedrate: " + isOver, 200, 100 );
+      // game.debug.text( "Pointer: (" + game.input.pointer1.x + ", " + game.input.pointer1.y + ")", 200, 116 );
+  }
+
   </script>
 
 </body>
