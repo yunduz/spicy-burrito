@@ -21,7 +21,7 @@ Splash.prototype = {
   },
 
   loadBgm: function () {
-    game.load.audio('background_music', 'assets/sound/Aces_High.wav');
+    game.load.audio('background_music', 'assets/sound/Blip_Stream.wav');
   },
 
   loadFonts: function () {

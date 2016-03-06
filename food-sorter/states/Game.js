@@ -9,6 +9,10 @@ var g_width = 800;
     'crate_smal_1year',
     'crate_smal_6months',
     'crate_smal_perishable'];
+  var popup_keys = [
+    'spaghetti_nutrition_popup',
+    'peanut_butter_nutrition_popup',
+    'peanut_butter_nutrition_popup'];
   var player;
   var boxes;
   var cursors;
@@ -17,11 +21,12 @@ var g_width = 800;
   var scoreText;
   var deadline;
   var current_star_keys = [];
-  var is_first_time = true;
+  var star_velocity = 60;
 
   var button;
   var popup;
-  var popup_keys = ['star', 'pb'];
+
+
 
 Game.prototype = {
 
@@ -30,13 +35,9 @@ Game.prototype = {
     //game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.load.image('sky', 'assets/images/sky.png');
-    game.load.image('star', 'assets/images/star.png');
-    game.load.image('star2', 'assets/images/star2.png');
     game.load.image('box', 'assets/images/platform.png');
-    game.load.image('box2', 'assets/images/platform2.png');
 
     game.load.image('close', 'assets/images/orb-red.png');
-    game.load.image('pb', 'assets/images/peanut_butter_mix.jpg');
     game.load.spritesheet('button', '/assets/images/button_sprite_sheet.png', 193, 71);
 
     //load food items
@@ -51,6 +52,11 @@ Game.prototype = {
       game.load.image(crate_keys[i], 'assets/images/' + crate_keys[i] + '.png');
     }
 
+    for(var i = 0; i < popup_keys.length; i++)
+    {
+      game.load.image(popup_keys[i], 'assets/images/' + popup_keys[i] + '.jpg');
+    }
+
    game.load.spritesheet('conveyer', 'assets/images/conveyour.png', 250, 150);
 
     this.optionCount = 1;
@@ -58,6 +64,13 @@ Game.prototype = {
 
   create: function () {
     this.stage.disableVisibilityChange = false;
+
+    if (music.name !== "background_music" && playMusic) {
+      music.stop();
+      music = game.add.audio('background_music');
+      music.loop = true;
+      music.play();
+    }
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //  A simple background for our game
     var sky = game.add.sprite(0, 0, 'sky');
@@ -79,8 +92,9 @@ Game.prototype = {
 
     deadline = game.add.sprite(0, 300, 'box');
     deadline.scale.setTo(100, 0.2);
+    deadline.visible = false;
     game.physics.arcade.enable(deadline);
-
+    
     // //  Finally some stars to collect
     stars = game.add.group();
     //  We will enable physics for any star that is created in this group
@@ -96,8 +110,10 @@ Game.prototype = {
 
     game.time.events.loop(Phaser.Timer.SECOND * 2, this.addStars, this);
     game.time.events.loop(Phaser.Timer.SECOND * 10, this.addNewStarType, this);
+    game.time.events.loop(Phaser.Timer.SECOND * 5, this.increaseStarVelocity, this);
   },
 
+ 
   addMenuOption: function(text, callback) {
     var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
     var txt = game.add.text(game.world.centerX, (this.optionCount * 80) + 200, text, optionStyle);
@@ -123,6 +139,11 @@ Game.prototype = {
     this.optionCount ++;
 
 
+  },
+
+ increaseStarVelocity: function()
+  {
+    star_velocity += 10
   },
 
   unpause: function(event)
@@ -160,11 +181,11 @@ Game.prototype = {
     //  Create a star inside of the 'stars' group
     var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
 
-    var star = stars.create(this.getRandomIntInclusive(205, 595), 0, key);
+    var star = stars.create(this.getRandomIntInclusive(205, 555), 0, key);
 
     //  Let gravity do its thing
 
-    star.body.velocity.y = 60;
+    star.body.velocity.y = star_velocity;
 
     star.checkWorldBounds = true;
     star.outOfBoundsKill = true;
@@ -177,7 +198,7 @@ Game.prototype = {
   addPopUpSprite: function(img_key)
   {
     //popup = game.add.sprite(game.world.centerX, game.world.centerY, img_key);
-    popup = game.add.sprite(game.world.centerX, game.world.centerY, 'pb');
+    popup = game.add.sprite(game.world.centerX, game.world.centerY, img_key);
     popup.alpha = 0.8;
     popup.anchor.set(0.5);
     popup.inputEnabled = true;
@@ -200,9 +221,6 @@ Game.prototype = {
 
     var style = { font: "32px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: popup.width, align: "center", backgroundColor: "#ffff00" };
 
-    text = game.add.text(0, 0, "SAMPLE TEXT", style);
-    text.anchor.set(0.5);
-    popup.addChild(text);
 
   },
 
