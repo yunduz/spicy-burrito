@@ -12,7 +12,7 @@ var g_width = 800;
   var popup_keys = [
     'spaghetti_nutrition_popup',
     'peanut_butter_nutrition_popup',
-    'peanut_butter_nutrition_popup'];
+    'howto'];
   var player;
   var boxes;
   var cursors;
@@ -266,7 +266,7 @@ Game.prototype = {
   {
     //popup = game.add.sprite(game.world.centerX, game.world.centerY, img_key);
     popup = game.add.sprite(game.world.centerX, game.world.centerY, img_key);
-    popup.alpha = 0.8;
+    //popup.alpha = 0.8;
     popup.anchor.set(0.5);
     popup.inputEnabled = true;
     popup.visible = false;
