@@ -16,7 +16,13 @@
   var g_width = 800;
   var g_height = 600;
 
-  var game = new Phaser.Game(g_width, g_height, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+  var star_keys = ['pasta_small', 'butter_small', 'apple_small'];
+
+  var game = new Phaser.Game(
+    g_width, g_height,
+    Phaser.AUTO, '',
+    { preload: preload, create: create, update: update, render: render });
+
   function preload() {
     // game.load.baseURL = 'http://examples.phaser.io/assets/';
     // game.load.crossOrigin = 'anonymous';
@@ -26,6 +32,16 @@
     game.load.image('star2', 'assets/star2.png');
     game.load.image('box', 'assets/platform.png');
     game.load.image('box2', 'assets/platform2.png');
+
+    game.load.image('close', 'assets/orb-red.png');
+    game.load.image('pb', 'assets/peanut_butter_mix.jpg');
+    game.load.spritesheet('button', '/assets/button_sprite_sheet.png', 193, 71);
+
+    for(var i = 0; i < star_keys.length; i++)
+    {
+      game.load.image(star_keys[i], 'assets/' + star_keys[i] + '.png');
+    }
+
   }
   var player;
   var boxes;
@@ -34,9 +50,12 @@
   var score = 0;
   var scoreText;
   var deadline;
-  var star_keys = ['star2', 'star'];
   var current_star_keys = [];
   var is_first_time = true;
+
+  var button;
+  var popup;
+  var popup_keys = ['star', 'pb'];
 
   function create() {
     //  We're going to be using physics, so enable the Arcade Physics system
@@ -67,26 +86,13 @@
     stars = game.add.group();
     //  We will enable physics for any star that is created in this group
     stars.enableBody = true;
-    // //  We will enable physics for any star that is created in this group
-    // stars.enableBody = true;
-    // //stars.setAll('body.velocity.y', 10);
-    // //  Here we'll create 12 of them evenly spaced apart
-    // for (var i = 0; i < 12; i++)
-    // {
-    //   //  Create a star inside of the 'stars' group
-    //   var star = stars.create(i * 70, 0, 'star');
-    //   //  Let gravity do its thing
-    //   //star.body.gravity.y = 10;
-    //   star.body.velocity.y = 10;
-    //
-    //   //enaable drag
-    //   star.inputEnabled = true;
-    //   star.input.enableDrag(false);
-    // }
 
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
-    //shor first popup
+    game.input.onDown.add(unpause, self);
+    //TODO: show first popup
+    //addPopUpSprite(popup_keys.pop());
+    //openPopUpWindow();
 
     addNewStarType();
     //add first star
@@ -96,13 +102,32 @@
     game.time.events.loop(Phaser.Timer.SECOND * 10, addNewStarType, this);
   }
 
+  function unpause(event)
+  {
+    // Only act if paused
+    if(game.paused)
+    {
+      // Calculate the corners of the menu
+      var x1 = 680, x2 = 705,
+      y1 = 105, y2 = 135;
+
+      // Check if the click was inside the menu
+      if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 )
+      {
+        closePopUpWindow();
+      }
+    }
+  }
+
   function addNewStarType()
   {
     if(star_keys.length > 0)
     {
       //TODO: if it's the first time we're running, show instructions
-
+      addPopUpSprite(popup_keys.pop());
+      openPopUpWindow();
       current_star_keys.push(star_keys.pop());
+
     }
   }
 
@@ -111,7 +136,7 @@
     //  Create a star inside of the 'stars' group
     var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
     var star = stars.create(g_width/2, 0, key);
-    star.scale.setTo(2,2);
+
     //  Let gravity do its thing
     //star.body.gravity.y = 10;
     star.body.velocity.y = 60;
@@ -122,6 +147,49 @@
     //enaable drag
     star.inputEnabled = true;
     star.input.enableDrag(false);
+  }
+
+  function addPopUpSprite(img_key)
+  {
+    //popup = game.add.sprite(game.world.centerX, game.world.centerY, img_key);
+    popup = game.add.sprite(game.world.centerX, game.world.centerY, 'pb');
+    popup.alpha = 0.8;
+    popup.anchor.set(0.5);
+    popup.inputEnabled = true;
+    popup.visible = false;
+  }
+
+  function openPopUpWindow()
+  {
+    game.paused = true;
+    popup.visible = true;
+
+    //  Position the close button to the top-right of the popup sprite (minus 8px for spacing)
+    var pw = (popup.width / 2) - 30;
+    var ph = (popup.height / 2) - 8;
+
+    //  And click the close button to close it down again
+    var closeButton = game.make.sprite(pw, -ph, 'close');
+    // closeButton.inputEnabled = true;
+    // closeButton.input.priorityID = 1;
+    // closeButton.input.useHandCursor = true;
+    // closeButton.events.onInputDown.add(closeWindow, this);
+    //
+    // //  Add the "close button" to the popup window image
+    popup.addChild(closeButton);
+
+    var style = { font: "32px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: popup.width, align: "center", backgroundColor: "#ffff00" };
+
+    //text = game.add.text(0, 0, "- text on a sprite -\ndrag me", style);
+    text = game.add.text(0, 0, "SAMPLE TEXT", style);
+    text.anchor.set(0.5);
+    popup.addChild(text);
+
+  }
+
+  function closePopUpWindow() {
+    popup.kill()
+    game.paused = false;
   }
 
   function update() {
@@ -160,6 +228,7 @@
   function render()
   {
     game.debug.text("current_keys: " + current_star_keys, 20, 20);
+    //game.debug.pointer( game.input.activePointer );
       // game.debug.text( "justpressedrate: " + isOver, 200, 100 );
       // game.debug.text( "Pointer: (" + game.input.pointer1.x + ", " + game.input.pointer1.y + ")", 200, 116 );
   }
