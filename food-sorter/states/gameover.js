@@ -5,6 +5,7 @@ GameOver.prototype = {
   preload: function () {
     this.optionCount = 1;
     game.load.audio('winner_music', 'assets/sound/WINNER.wav');
+    game.load.image('bgover', 'assets/images/endscreen.png');
   },
 
   addMenuOption: function(text, callback) {
@@ -40,7 +41,7 @@ GameOver.prototype = {
  },
 
   create: function () {
-    //game.add.sprite(0, 0, 'gameover-bg');
+    game.add.sprite(0, 0, 'bgover');
 
     if (music.name == "game_music" && gameOptions.playMusic) {
       music.stop();
@@ -56,7 +57,7 @@ GameOver.prototype = {
     this.addMenuOption('Share Score', function (e) {
       this.tweetscore();
     });
-    game.add.text(game.world.centerX+50, 200, localStorage.getItem("finalscore"), { font: 'bold 80pt TheMinion', fill: 'red', align: 'center'});
+    game.add.text(game.world.centerX+80, 240, localStorage.getItem("finalscore"), { font: 'bold 80pt TheMinion', fill: 'red', align: 'center'});
     this.addMenuOption('Volunteer', function (e) {
       window.open("https://www.foodbank.bc.ca/get-involved/volunteer/","_blank");
     });

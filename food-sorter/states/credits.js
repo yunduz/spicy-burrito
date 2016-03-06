@@ -5,6 +5,7 @@ Credits.prototype = {
   preload: function () {
     this.optionCount = 1;
     this.creditCount = 0;
+    game.load.image('bgcredit', 'assets/images/credits.png');
 
   },
 
@@ -79,7 +80,7 @@ Credits.prototype = {
   },
 
   create: function () {
-
+    game.add.sprite(0, 0, 'bgcredit');
     if (music.name !== "background_music" && gameOptions.playMusic) {
       music.stop();
       music = game.add.audio('background_music');
@@ -87,17 +88,17 @@ Credits.prototype = {
       music.play();
     }
     this.stage.disableVisibilityChange = true;
-    game.add.existing(this.titleText);
+    //game.add.existing(this.titleText);
 
-    game.add.text(game.world.centerX, 400, "#{van} hacks - Vancouver Food Bank", {
-      font: 'bold 20pt',
-      fill: 'white',
-      align: 'center'
-    });
-    game.add.existing(this.evText);
-    game.add.existing(this.miText);
-    game.add.existing(this.yrText);
-    game.add.existing(this.ymkText);
+    // game.add.text(game.world.centerX, 400, "#{van} hacks - Vancouver Food Bank", {
+    //   font: 'bold 20pt',
+    //   fill: 'white',
+    //   align: 'center'
+    // });
+    // game.add.existing(this.evText);
+    // game.add.existing(this.miText);
+    // game.add.existing(this.yrText);
+    // game.add.existing(this.ymkText);
     //var bg = game.add.sprite(0, 0, 'gameover-bg');
     
     this.addMenuOption('Back', function (e) {
