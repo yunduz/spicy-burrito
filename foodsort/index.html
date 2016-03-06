@@ -52,7 +52,7 @@
       game.load.image(crate_keys[i], 'assets/' + crate_keys[i] + '.png');
     }
 
-    game.load.spritesheet('conveyer', 'assets/test.png', 500, 300);
+    game.load.spritesheet('conveyer', 'assets/conveyour.png', 250, 150);
 
   }
   var player;
@@ -77,8 +77,9 @@
     sky.scale.setTo(2, 1.5);
 
     var conveyer = game.add.sprite(150, 0, 'conveyer');
+    conveyer.scale.setTo(2, 2);
     var belt = conveyer.animations.add('belt');
-    conveyer.animations.play('belt', 30, true);
+    conveyer.animations.play('belt', 10, true);
 
     boxes = game.add.group();
     boxes.enableBody = true;
@@ -144,7 +145,7 @@
     //  Create a star inside of the 'stars' group
     var key = current_star_keys[Math.floor(Math.random()*current_star_keys.length)];
 
-    var star = stars.create(getRandomIntInclusive(200, g_width-200), 0, key);
+    var star = stars.create(getRandomIntInclusive(205, 595), 0, key);
 
     //  Let gravity do its thing
 
@@ -231,6 +232,7 @@
   function render()
   {
     game.debug.text("current_keys: " + current_star_keys, 20, 20);
+    game.debug.pointer( game.input.activePointer );
   }
 
   // Returns a random integer between min (included) and max (included)
