@@ -13,9 +13,9 @@ var g_width = 800;
     'apple_small',
     magical_item];
   var crate_keys = [
-    'crate_smal_1year',
-    'crate_smal_6months',
-    'crate_smal_perishable'];
+    'crate_grains',
+    'crate_proteins',
+    'crate_produce'];
   var popup_keys = [
     'spaghetti_nutrition_popup',
     'peanut_butter_nutrition_popup',
