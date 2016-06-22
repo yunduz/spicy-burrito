@@ -38,6 +38,8 @@ var countDownTimerEvent;
 
 var newStarTypeEvent;
 
+var IN_GAME_BASE_TEXT_COLOUR = '#000';
+
 Game.prototype = {
 
   preload: function () {
@@ -118,8 +120,8 @@ Game.prototype = {
     //  We will enable physics for any star that is created in this group
     stars.enableBody = true;
 
-    scoreText = game.add.text(12, 12, 'Score: 0', { fontSize: '28px', fill: '#000' });
-    countDownTimerText = game.add.text(12, 60, 'Time: '+countDownTimer,  { fontSize: '28px', fill: '#000' });
+    scoreText = game.add.text(12, 12, 'Score: 0', { fontSize: '28px', fill: IN_GAME_BASE_TEXT_COLOUR });
+    countDownTimerText = game.add.text(12, 60, 'Time: '+countDownTimer,  { fontSize: '28px', fill: IN_GAME_BASE_TEXT_COLOUR });
 
     this.quitOption('Quit', function (e) {
       // localStorage.setItem("finalscore", score);
@@ -397,7 +399,7 @@ Game.prototype = {
     scoreText.fill = "#ff0044"
     negativeScoreTween.onComplete.add(function()
     {
-      scoreText.fill = '#000'
+      scoreText.fill = IN_GAME_BASE_TEXT_COLOUR;
       text.destroy();
     });
   }
