@@ -311,7 +311,7 @@ Game.prototype = {
 
   openPopUpWindow: function()
   {
-     game.paused = true;
+    game.paused = true;
     popup.visible = true;
 
     //  Position the close button to the top-right of the popup sprite (minus 8px for spacing)
@@ -362,6 +362,7 @@ Game.prototype = {
     {
       score -= 5;
       loss_music.play();
+      this.flashSortBox(box)
     }
     scoreText.text = 'Score: ' + score;
     countDownTimerText.setText('Time: ' + countDownTimer);
@@ -375,11 +376,30 @@ Game.prototype = {
       star.kill();
     }
   },
-    // Returns a random integer between min (included) and max (included)
+
+  // Returns a random integer between min (included) and max (included)
   // Using Math.round() will give you a non-uniform distribution!
   getRandomIntInclusive: function(min, max)
   {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+
+  flashSortBox: function(box_sprite)
+  {
+    var style = { font: "65px Arial", fill: "#ff0044", align: "center" };
+    var text = game.add.text(0, 0, "-5", style);
+    text.anchor.set(0.5);
+    text.x = box_sprite.x + box_sprite.width/2;
+    text.y = box_sprite.y - text.height/2;
+    text.alpha = 0.0;
+
+    negativeScoreTween = game.add.tween(text).to( { alpha: 1 }, 400, Phaser.Easing.Linear.None, true, 0, 0, true);
+    scoreText.fill = "#ff0044"
+    negativeScoreTween.onComplete.add(function()
+    {
+      scoreText.fill = '#000'
+      text.destroy();
+    });
   }
 
 };
