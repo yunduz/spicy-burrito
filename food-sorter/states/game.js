@@ -1,42 +1,42 @@
 var Game = function(game) {};
 
 var g_width = 800;
-  var g_height = 600;
+var g_height = 600;
 
-  var star_keys = ['pasta_small', 'butter_small', 'apple_small'];
-  var magical_item = 'magic_apple';
-  var magical_item_counter_const = 5;
-  var magical_item_counter = magical_item_counter_const;
-  var permanent_star_keys = [
-    'pasta_small',
-    'butter_small',
-    'apple_small',
-    magical_item];
-  var crate_keys = [
-    'crate_grains',
-    'crate_proteins',
-    'crate_produce'];
-  var popup_keys = [
-    'spaghetti_nutrition_popup',
-    'peanut_butter_nutrition_popup',
-    'howto'];
-  var player;
-  var boxes;
-  var cursors;
-  var stars;
-  var score = 0;
-  var scoreText;
-  var deadline;
-  var current_star_keys = [];
-  var star_velocity = 60;
+var star_keys = ['pasta_small', 'butter_small', 'apple_small'];
+var magical_item = 'magic_apple';
+var magical_item_counter_const = 5;
+var magical_item_counter = magical_item_counter_const;
+var permanent_star_keys = [
+  'pasta_small',
+  'butter_small',
+  'apple_small',
+  magical_item];
+var crate_keys = [
+  'crate_grains',
+  'crate_proteins',
+  'crate_produce'];
+var popup_keys = [
+  'spaghetti_nutrition_popup',
+  'peanut_butter_nutrition_popup',
+  'howto'];
+var player;
+var boxes;
+var cursors;
+var stars;
+var score = 0;
+var scoreText;
+var deadline;
+var current_star_keys = [];
+var star_velocity = 60;
 
-  var popup;
+var popup;
 
-  var countDownTimer = 60;
-  var countDownTimerText;
-  var countDownTimerEvent;
+var countDownTimer = 60;
+var countDownTimerText;
+var countDownTimerEvent;
 
-  var newStarTypeEvent;
+var newStarTypeEvent;
 
 Game.prototype = {
 
