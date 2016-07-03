@@ -4,110 +4,62 @@ Mission.prototype = {
 
   preload: function () {
     this.optionCount = 1;
+    this.pinCount = 13;
     game.load.image('map', 'assets/images/map.png');
-    //game.load.spritesheet('button', 'assets/images/sprite_pin.png',465,640,2);
+
+    var imgArr = ["assets/images/sprite_pin_vancouver.png", "assets/images/sprite_pin_burnaby.png",
+    "assets/images/sprite_pin_richmond.png"];
+
+    var j = 0;
+    for(var i=0; i<this.pinCount; i++) {
+       j = Math.round(Math.random()*2);
+       game.load.spritesheet('pin_' + i.toString(), imgArr[j],46,60,2);
+    }
+
     game.load.spritesheet('vanpin', 'assets/images/sprite_pin_vancouver.png',46,60,2);
     game.load.spritesheet('burnpin', 'assets/images/sprite_pin_burnaby.png',46,60,2);
     game.load.spritesheet('richpin', 'assets/images/sprite_pin_richmond.png',46,60,2);
-    
-  },
-  selectVan: function(text, callback) {
 
-    var vanpin;
-
-    vanpin = game.add.button(game.world.centerX-200, game.world.centerY-70, 'vanpin', vanOnClick, this, 1, 0);
-    //vanpin.scale.x=0.05;
-    //vanpin.scale.y=0.05;
-
-    game.add.tween(vanpin).to({ y: 250 }, 1100, Phaser.Easing.Quadratic.InOut, true, 0, 1100, true);
-
-    var vancouver_txt = game.add.text(game.world.centerX-210, game.world.centerY-10, 'Vancouver', { font: '10pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 0});
-    game.add.tween(vancouver_txt).to({ y: 310 }, 1100, Phaser.Easing.Quadratic.InOut, true, 0, 1100, true);
-
-    var onOver = function (target) {
-      vanpin.useHandCursor = true;
-    };
-    var onOut = function (target) {
-      vanpin.useHandCursor = false;
-    };
-
-    vanpin.inputEnabled = true;
-    vanpin.events.onInputUp.add(callback, this);
-    vanpin.events.onInputOver.add(onOver, this);
-    vanpin.events.onInputOut.add(onOut, this);
-
-
-    function vanOnClick () {
-    }
-    this.optionCount ++;
   },
 
-  selectBurn: function(text, callback) {
+  selectPin: function(text, location, callback) {
 
-    var burnpin;
+    var pin;
+    var noise = Math.round(Math.random() * 15) + 1;
+    noise *= 10;
+    var locX = location.toString().split(",")[0];
+    var locY = location.toString().split(",")[1];
+    console.log(locX, locY);
+    console.log(noise);
+    pin = game.add.button(locX-7, locY-30, text, pinOnClick, this, 1, 0);
+    pin.scale.x=0.33;
+    pin.scale.y=0.33;
 
-    burnpin = game.add.button(game.world.centerX+100, game.world.centerY-120, 'burnpin', burnOnClick, this, 1, 0);
-    //burnpin.scale.x=0.05;
-    //burnpin.scale.y=0.05;
-
-    game.add.tween(burnpin).to({ y: 200 }, 1300, Phaser.Easing.Quadratic.InOut, true, 0, 1300, true);
-
-    var burnaby_txt = game.add.text(game.world.centerX+90, game.world.centerY-60, 'Burnaby', { font: '10pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 0});
-    game.add.tween(burnaby_txt).to({ y: 260 }, 1300, Phaser.Easing.Quadratic.InOut, true, 0, 1300, true);
-
-    var onOver = function (target) {
-      burnpin.useHandCursor = true;
-    };
-    var onOut = function (target) {
-      burnpin.useHandCursor = false;
-    };
-
-    burnpin.inputEnabled = true;
-    burnpin.events.onInputUp.add(callback, this);
-    burnpin.events.onInputOver.add(onOver, this);
-    burnpin.events.onInputOut.add(onOut, this);
-
-    function burnOnClick () {
-    }
-    this.optionCount ++;
-  },
-
-  selectRich: function(text, callback) {
-  
-    var richpin;
-
-    richpin = game.add.button(game.world.centerX-160, game.world.centerY+140, 'richpin', richOnClick, this, 1, 0);
-    //richpin.scale.x=0.05;
-    //richpin.scale.y=0.05;
-
-    game.add.tween(richpin).to({ y: 460 }, 1200, Phaser.Easing.Quadratic.InOut, true, 0, 1200, true);
-
-    var richmond_txt = game.add.text(game.world.centerX-170, game.world.centerY+200, 'Richmond', { font: '10pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 0});
-    game.add.tween(richmond_txt).to({ y: 520 }, 1200, Phaser.Easing.Quadratic.InOut, true, 0, 1200, true);
-
+    // animation
+    game.add.tween(pin).to({ y: locY-35}, 1100 + noise, Phaser.Easing.Quadratic.InOut, true, 0, 1100, true);
+    game.add.text(locX-4, locY-5, 'X', { font: '10pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 0});
 
     var onOver = function (target) {
-      richpin.useHandCursor = true;
+      pin.useHandCursor = true;
     };
     var onOut = function (target) {
-      richpin.useHandCursor = false;
+      pin.useHandCursor = false;
     };
 
-    richpin.inputEnabled = true;
-    richpin.events.onInputUp.add(callback, this);
-    richpin.events.onInputOver.add(onOver, this);
-    richpin.events.onInputOut.add(onOut, this);
+    pin.inputEnabled = true;
+    pin.events.onInputUp.add(callback, this);
+    pin.events.onInputOver.add(onOver, this);
+    pin.events.onInputOut.add(onOut, this);
 
-    function richOnClick () {
-
+    function pinOnClick () {
     }
     this.optionCount ++;
   },
 
   addMenuOption: function(text, callback) {
 
-    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
-    var txt = game.add.text(70, (this.optionCount * 80) + 200, text, optionStyle);
+    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 4};
+    var txt = game.add.text(70, 570, text, optionStyle);
 
     txt.anchor.setTo(0.5);
     txt.stroke = "rgba(0,0,0,0";
@@ -143,22 +95,33 @@ Mission.prototype = {
     }
 
     this.stage.disableVisibilityChange = true;
-    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', srokeThickness: 4};
-    var txt = game.add.text(game.world.centerX-200, 90, 'Choose Mission', optionStyle);
+    var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 4};
+    game.add.text(game.world.centerX+50, 80, 'Choose Mission', optionStyle);
 
-    this.selectVan('van', function (e) {
-     this.game.state.start("Game");
-    });
+    var optionStyle2 = { font: '25pt TheMinion', fill: '#FDFFB5', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 0};
+    game.add.text(game.world.centerX-320, game.world.centerY+50, 'Vancouver', optionStyle2);
+    game.add.text(game.world.centerX+100, game.world.centerY-100, 'Burnaby', optionStyle2);
+    game.add.text(game.world.centerX+100, game.world.centerY+220, 'Surrey', optionStyle2);
 
-    this.selectBurn('burn', function (e) {
-     this.game.state.start("Game");
-    });
+    var pinLoc = [[304, 47],
+                [128, 168],
+                [249, 171],
+                [278, 208],
+                [367, 173],
+                [226, 256],
+                [429, 253],
+                [128, 516],
+                [305, 317],
+                [363, 433],
+                [519, 476],
+                [657, 459],
+                [721, 506]];
 
-    this.selectRich('rich', function (e) {
-     this.game.state.start("Game");
-    });
-
-
+    for(var i = 0; i<pinLoc.length; i++) {
+      this.selectPin('pin_'+i, pinLoc[i], function (e) {
+       this.game.state.start("Game");
+      });
+    }
     this.addMenuOption('Back', function (e) {
       this.game.state.start("GameMenu");
     });

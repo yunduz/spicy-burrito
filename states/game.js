@@ -1,42 +1,44 @@
 var Game = function(game) {};
 
 var g_width = 800;
-  var g_height = 600;
+var g_height = 600;
 
-  var star_keys = ['pasta_small', 'butter_small', 'apple_small'];
-  var magical_item = 'magic_apple';
-  var magical_item_counter_const = 5;
-  var magical_item_counter = magical_item_counter_const;
-  var permanent_star_keys = [
-    'pasta_small',
-    'butter_small',
-    'apple_small',
-    magical_item];
-  var crate_keys = [
-    'crate_smal_1year',
-    'crate_smal_6months',
-    'crate_smal_perishable'];
-  var popup_keys = [
-    'spaghetti_nutrition_popup',
-    'peanut_butter_nutrition_popup',
-    'howto'];
-  var player;
-  var boxes;
-  var cursors;
-  var stars;
-  var score = 0;
-  var scoreText;
-  var deadline;
-  var current_star_keys = [];
-  var star_velocity = 60;
+var star_keys = ['pasta_small', 'butter_small', 'apple_small'];
+var magical_item = 'magic_apple';
+var magical_item_counter_const = 5;
+var magical_item_counter = magical_item_counter_const;
+var permanent_star_keys = [
+  'pasta_small',
+  'butter_small',
+  'apple_small',
+  magical_item];
+var crate_keys = [
+  'crate_grains',
+  'crate_proteins',
+  'crate_produce'];
+var popup_keys = [
+  'spaghetti_nutrition_popup',
+  'peanut_butter_nutrition_popup',
+  'howto'];
+var player;
+var boxes;
+var cursors;
+var stars;
+var score = 0;
+var scoreText;
+var deadline;
+var current_star_keys = [];
+var star_velocity = 60;
 
-  var popup;
+var popup;
 
-  var countDownTimer = 60;
-  var countDownTimerText;
-  var countDownTimerEvent;
+var countDownTimer = 60;
+var countDownTimerText;
+var countDownTimerEvent;
 
-  var newStarTypeEvent;
+var newStarTypeEvent;
+
+var IN_GAME_BASE_TEXT_COLOUR = '#000';
 
 Game.prototype = {
 
@@ -118,8 +120,8 @@ Game.prototype = {
     //  We will enable physics for any star that is created in this group
     stars.enableBody = true;
 
-    scoreText = game.add.text(12, 12, 'Score: 0', { fontSize: '28px', fill: '#000' });
-    countDownTimerText = game.add.text(12, 60, 'Time: '+countDownTimer,  { fontSize: '28px', fill: '#000' });
+    scoreText = game.add.text(12, 12, 'Score: 0', { fontSize: '28px', fill: IN_GAME_BASE_TEXT_COLOUR });
+    countDownTimerText = game.add.text(12, 60, 'Time: '+countDownTimer,  { fontSize: '28px', fill: IN_GAME_BASE_TEXT_COLOUR });
 
     this.quitOption('Quit', function (e) {
       // localStorage.setItem("finalscore", score);
@@ -311,7 +313,7 @@ Game.prototype = {
 
   openPopUpWindow: function()
   {
-     game.paused = true;
+    game.paused = true;
     popup.visible = true;
 
     //  Position the close button to the top-right of the popup sprite (minus 8px for spacing)
@@ -362,6 +364,7 @@ Game.prototype = {
     {
       score -= 5;
       loss_music.play();
+      this.flashSortBox(box)
     }
     scoreText.text = 'Score: ' + score;
     countDownTimerText.setText('Time: ' + countDownTimer);
@@ -375,11 +378,30 @@ Game.prototype = {
       star.kill();
     }
   },
-    // Returns a random integer between min (included) and max (included)
+
+  // Returns a random integer between min (included) and max (included)
   // Using Math.round() will give you a non-uniform distribution!
   getRandomIntInclusive: function(min, max)
   {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+
+  flashSortBox: function(box_sprite)
+  {
+    var style = { font: "65px Arial", fill: "#ff0044", align: "center" };
+    var text = game.add.text(0, 0, "-5", style);
+    text.anchor.set(0.5);
+    text.x = box_sprite.x + box_sprite.width/2;
+    text.y = box_sprite.y - text.height/2;
+    text.alpha = 0.0;
+
+    negativeScoreTween = game.add.tween(text).to( { alpha: 1 }, 400, Phaser.Easing.Linear.None, true, 0, 0, true);
+    scoreText.fill = "#ff0044"
+    negativeScoreTween.onComplete.add(function()
+    {
+      scoreText.fill = IN_GAME_BASE_TEXT_COLOUR;
+      text.destroy();
+    });
   }
 
 };
