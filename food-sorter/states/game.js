@@ -32,7 +32,7 @@ var star_velocity = 60;
 
 var popup;
 
-var countDownTimer = 60;
+var countDownTimer = 30;
 var countDownTimerText;
 var countDownTimerEvent;
 
@@ -140,7 +140,7 @@ Game.prototype = {
     this.addStars();
 
     game.time.events.loop(Phaser.Timer.SECOND * 2, this.addStars, this);
-    newStarTypeEvent = game.time.events.loop(Phaser.Timer.SECOND * 10, this.addNewStarType, this);
+    newStarTypeEvent = game.time.events.loop(Phaser.Timer.SECOND * 5, this.addNewStarType, this);
     game.time.events.loop(Phaser.Timer.SECOND * 5, this.increaseStarVelocity, this);
     countDownTimerEvent = this.time.events.loop(Phaser.Timer.SECOND, this.updateCountDownTimer, this);
   },
@@ -155,7 +155,7 @@ Game.prototype = {
     score=0;
     magical_item_counter = magical_item_counter_const;
     star_velocity = 60;
-    countDownTimer = 60;
+    countDownTimer = 30;
   },
 
   updateCountDownTimer: function() {
