@@ -88,7 +88,6 @@ GameMenu.prototype = {
       music.loop = true;
       music.play();
     }
-
     game.add.sprite(0, 0, 'skyline');
     //game.stage.backgroundColor = "#4488AA";
     game.stage.disableVisibilityChange = true;

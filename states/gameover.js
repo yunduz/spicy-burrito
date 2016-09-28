@@ -43,7 +43,7 @@ GameOver.prototype = {
   create: function () {
     game.add.sprite(0, 0, 'bgover');
 
-    if (music.name == "game_music" && gameOptions.playMusic) {
+    if (gameOptions.playMusic) {
       music.stop();
       music = game.add.audio('winner_music');
       //music.loop = true;
