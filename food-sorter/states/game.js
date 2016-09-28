@@ -49,6 +49,7 @@ Game.prototype = {
     game.load.image('floor', 'assets/images/floor.png');
     game.load.image('box', 'assets/images/platform.png');
     game.load.image('close', 'assets/images/cross_small.png');
+    game.load.image('start_game', 'assets/images/start.png'); //85x22
     game.load.image(magical_item, 'assets/images/'+magical_item+'.png');
 
     //load food items
@@ -221,6 +222,7 @@ Game.prototype = {
 
 
   },
+
  increaseStarVelocity: function()
   {
     star_velocity += 10
@@ -232,8 +234,15 @@ Game.prototype = {
     if(game.paused)
     {
       // Calculate the corners of the menu
+      // (menu here is an X)
       var x1 = 680, x2 = 705,
       y1 = 105, y2 = 135;
+
+      if(popup.key === 'howto') {
+        // menu here is a Start
+        x1 = 605; x2 = 700;
+        y1 = 120; y2 = 150;
+      }
 
       // Check if the click was inside the menu
       if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 )
@@ -316,12 +325,25 @@ Game.prototype = {
     game.paused = true;
     popup.visible = true;
 
-    //  Position the close button to the top-right of the popup sprite (minus 8px for spacing)
-    var pw = (popup.width / 2) - 30;
-    var ph = (popup.height / 2) - 8;
+    var close_w = 30;
+    var close_h = 8;
+    // we are not using txt with hove over or animated sprite here 
+    // (to highlight when user hovers over the close option) because 
+    // the game is paused at this time and no animation can run
+    var close_img = 'close';
+
+    if(popup.key === 'howto') {
+      close_w = 110;
+      close_h = 25;
+      close_img = 'start_game';
+    }
+
+    //  Position the close button to the top-right of the popup sprite (minus close_h for spacing)
+    var pw = (popup.width / 2) - close_w;
+    var ph = (popup.height / 2) - close_h;
 
     //  And click the close button to close it down again
-    var closeButton = game.make.sprite(pw, -ph, 'close');
+    var closeButton = game.make.sprite(pw, -ph, close_img);
 
     popup.addChild(closeButton);
 
@@ -340,6 +362,11 @@ Game.prototype = {
 
     game.physics.arcade.overlap(deadline, stars, this.removeStar, null, this);
   },
+
+  // render: function() {
+  //   game.debug.inputInfo(32, 32);
+  //   game.debug.pointer( game.input.activePointer );
+  // },
 
   collectItem: function(box, star)
   {
