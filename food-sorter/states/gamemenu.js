@@ -84,11 +84,10 @@ GameMenu.prototype = {
 
     if (music.name !== "background_music" && gameOptions.playMusic) {
       music.stop();
-      // music = game.add.audio('background_music');
-      // music.loop = true;
-      // music.play();
+      music = game.add.audio('background_music');
+      music.loop = true;
+      music.play();
     }
-
     game.add.sprite(0, 0, 'skyline');
     //game.stage.backgroundColor = "#4488AA";
     game.stage.disableVisibilityChange = true;

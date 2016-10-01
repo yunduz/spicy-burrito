@@ -69,11 +69,12 @@ Game.prototype = {
       game.load.image(popup_keys[i], 'assets/images/' + popup_keys[i] + '.jpg');
     }
 
-   game.load.spritesheet('conveyer', 'assets/images/conveyour.png', 250, 150);
-   game.load.audio('game_music', 'assets/sound/Blip_Stream_short.mp3');
-   game.load.audio('score_music', 'assets/sound/SCORE.wav');
-  game.load.audio('loss_music', 'assets/sound/LOOSER.wav');
-  game.load.audio('game_music', 'assets/sound/Blip_Stream_short.mp3');
+    game.load.spritesheet('conveyer', 'assets/images/conveyour.png', 250, 150);
+    game.load.audio('game_music', 'assets/sound/Blip_Stream_short.mp3');
+    game.load.audio('score_music', 'assets/sound/SCORE.wav');
+    game.load.audio('loss_music', 'assets/sound/LOOSER.wav');
+    game.load.audio('game_music', 'assets/sound/Blip_Stream_short.mp3');
+    game.load.audio('game_music', 'assets/sound/food_sorter_music.mp3');
 
     this.optionCount = 1;
   },
@@ -85,6 +86,12 @@ Game.prototype = {
       music = game.add.audio('game_music');
       music.loop = true;
       music.volume=0.2;
+      music.play();
+    }
+    if (music.name !== "background_music" && gameOptions.playMusic) {
+      music.stop();
+      music = game.add.audio('background_music');
+      music.loop = true;
       music.play();
     }
 
