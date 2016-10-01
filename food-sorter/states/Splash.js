@@ -50,8 +50,8 @@ Splash.prototype = {
 
    addGameMusic: function () {
     music = game.add.audio('background_music');
-    music.loop = true;
-    music.play();
+    // music.loop = true;
+    // music.play();
   },
 
   create: function() {
