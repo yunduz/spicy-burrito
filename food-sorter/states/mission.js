@@ -7,19 +7,12 @@ Mission.prototype = {
     this.pinCount = 13;
     game.load.image('map', 'assets/images/map.png');
 
-    var imgArr = ["assets/images/sprite_pin_vancouver.png", "assets/images/sprite_pin_burnaby.png",
-    "assets/images/sprite_pin_richmond.png"];
+    var imgArr = ["assets/images/sprite_pin.png"];
 
     var j = 0;
     for(var i=0; i<this.pinCount; i++) {
-       j = Math.round(Math.random()*2);
-       game.load.spritesheet('pin_' + i.toString(), imgArr[j],46,60,2);
+       game.load.spritesheet('pin_' + i.toString(), imgArr[0],116,130,2);
     }
-
-    game.load.spritesheet('vanpin', 'assets/images/sprite_pin_vancouver.png',46,60,2);
-    game.load.spritesheet('burnpin', 'assets/images/sprite_pin_burnaby.png',46,60,2);
-    game.load.spritesheet('richpin', 'assets/images/sprite_pin_richmond.png',46,60,2);
-
   },
 
   selectPin: function(text, location, callback) {
