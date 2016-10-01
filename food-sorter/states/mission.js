@@ -89,7 +89,7 @@ Mission.prototype = {
 
     this.stage.disableVisibilityChange = true;
     var optionStyle = { font: '30pt TheMinion', fill: '#FDFFB5', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 1};
-    game.add.text(game.world.centerX-200, 340, 'Choose location', optionStyle);
+    game.add.text(game.world.centerX-200, 350, 'Choose location', optionStyle);
 
     // var optionStyle2 = { font: '25pt TheMinion', fill: '#FDFFB5', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 0};
     // game.add.text(game.world.centerX-320, game.world.centerY+50, 'Vancouver', optionStyle2);
