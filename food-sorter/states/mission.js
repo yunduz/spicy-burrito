@@ -32,12 +32,12 @@ Mission.prototype = {
     console.log(locX, locY);
     console.log(noise);
     pin = game.add.button(locX-7, locY-30, text, pinOnClick, this, 1, 0);
-    pin.scale.x=0.33;
-    pin.scale.y=0.33;
+    pin.scale.x=0.5;
+    pin.scale.y=0.5;
 
     // animation
     game.add.tween(pin).to({ y: locY-35}, 1100 + noise, Phaser.Easing.Quadratic.InOut, true, 0, 1100, true);
-    game.add.text(locX-4, locY-5, 'X', { font: '10pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 0});
+    //game.add.text(locX-4, locY-5, 'X', { font: '10pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 0});
 
     var onOver = function (target) {
       pin.useHandCursor = true;
@@ -89,19 +89,19 @@ Mission.prototype = {
 
     if (music.name !== "background_music" && gameOptions.playMusic) {
       music.stop();
-      music = game.add.audio('background_music');
-      music.loop = true;
-      music.play();
+      // music = game.add.audio('background_music');
+      // music.loop = true;
+      // music.play();
     }
 
     this.stage.disableVisibilityChange = true;
     var optionStyle = { font: '30pt TheMinion', fill: 'white', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 4};
-    game.add.text(game.world.centerX+50, 80, 'Choose Mission', optionStyle);
+    game.add.text(game.world.centerX+50, 80, 'Choose Location', optionStyle);
 
-    var optionStyle2 = { font: '25pt TheMinion', fill: '#FDFFB5', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 0};
-    game.add.text(game.world.centerX-320, game.world.centerY+50, 'Vancouver', optionStyle2);
-    game.add.text(game.world.centerX+100, game.world.centerY-100, 'Burnaby', optionStyle2);
-    game.add.text(game.world.centerX+100, game.world.centerY+220, 'Surrey', optionStyle2);
+    // var optionStyle2 = { font: '25pt TheMinion', fill: '#FDFFB5', align: 'left', stroke: 'rgba(0,0,0,0)', strokeThickness: 0};
+    // game.add.text(game.world.centerX-320, game.world.centerY+50, 'Vancouver', optionStyle2);
+    // game.add.text(game.world.centerX+100, game.world.centerY-100, 'Burnaby', optionStyle2);
+    // game.add.text(game.world.centerX+100, game.world.centerY+220, 'Surrey', optionStyle2);
 
     var pinLoc = [[304, 47],
                 [128, 168],
