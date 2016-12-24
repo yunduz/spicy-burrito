@@ -13,6 +13,13 @@ var
 
 Main.prototype = {
 
+  init: function () {
+    game.scale.maxWidth = 800;
+    game.scale.maxHeight = 600;
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    game.scale.updateLayout();
+  },
+
   preload: function () {
     game.load.script('polyfill',   'lib/polyfill.js');
     game.load.script('utils',   'lib/utils.js');
